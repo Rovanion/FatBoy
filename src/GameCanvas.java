@@ -49,7 +49,7 @@ public class GameCanvas extends Canvas implements Runnable
 			e.printStackTrace();
 		}
 		
-		fatBoyImage = makeColorTransparent();
+		fatBoyImage = makeColorTransparent((BufferedImage) fatBoyImage);
 		hero = new FatBoyHero(fatBoyImage, 600, 590);
 		
 		disk = new Disk();
@@ -122,20 +122,27 @@ public class GameCanvas extends Canvas implements Runnable
 		hero.update(controller);
 	}
 	
-	private BufferedImage makeColorTransparent() {  
-    BufferedImage image = (BufferedImage) fatBoyImage;
-    BufferedImage dimg = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB); 
-	Graphics2D g2 = dimg.createGraphics();  
-    g2.setComposite(AlphaComposite.Src);  
-    g2.drawImage(image, null, 0, 0);  
-    g2.dispose();  
-    for(int i = 0; i < dimg.getHeight(); i++) {  
-        for(int j = 0; j < dimg.getWidth(); j++) {  
-            if(dimg.getRGB(j, i) == Color.WHITE.getRGB()) {  
-            dimg.setRGB(j, i, 0x8F1C1C);  
+	/**
+	 * MakeColorTransparent removes the frame which follows imported images.
+	 * @return
+	 */
+	private BufferedImage makeColorTransparent(BufferedImage image) 
+	{
+		BufferedImage dimg = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB); 
+		Graphics2D g2 = dimg.createGraphics();  
+		g2.setComposite(AlphaComposite.Src);  
+		g2.drawImage(image, null, 0, 0);  
+		g2.dispose();  
+		for(int i = 0; i < dimg.getHeight(); i++) 
+		{  
+			for(int j = 0; j < dimg.getWidth(); j++) 
+			{  
+				if(dimg.getRGB(j, i) == Color.WHITE.getRGB()) 
+				{  
+					dimg.setRGB(j, i, 0x8F1C1C);  
+				}
             }  
         }  
-    }  
-    return dimg;  
+		return dimg;  
 	}
 }
