@@ -52,7 +52,7 @@ public class GameCanvas extends Canvas implements Runnable
 		fatBoyImage = makeColorTransparent((BufferedImage) fatBoyImage);
 		hero = new FatBoyHero(fatBoyImage, 600, 590);
 		
-		disk = new Disk();
+		disk = new Disk(this);
 	}
 	
 	//METHODS
@@ -106,6 +106,7 @@ public class GameCanvas extends Canvas implements Runnable
 		g.fillRect(550, 520, 2000, 6);		
 		
 		hero.render(g);
+		disk.render(g);
 	
 		strategy.show();
 	}
@@ -126,7 +127,7 @@ public class GameCanvas extends Canvas implements Runnable
 	 * MakeColorTransparent removes the frame which follows imported images.
 	 * @return
 	 */
-	private BufferedImage makeColorTransparent(BufferedImage image) 
+	public BufferedImage makeColorTransparent(BufferedImage image) 
 	{
 		BufferedImage dimg = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB); 
 		Graphics2D g2 = dimg.createGraphics();  
