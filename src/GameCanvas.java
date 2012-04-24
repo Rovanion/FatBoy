@@ -18,6 +18,7 @@ public class GameCanvas extends Canvas implements Runnable
 	private boolean running;
 	private Image backgroundImage;
 	private Image fatBoyImage;
+	private Disk disk;
 	private FatBoyHero hero;
 	private Controller controller = new Controller();
 
@@ -50,6 +51,8 @@ public class GameCanvas extends Canvas implements Runnable
 		
 		fatBoyImage = makeColorTransparent((BufferedImage) fatBoyImage);
 		hero = new FatBoyHero(fatBoyImage, 600, 590);
+		
+		disk = new Disk();
 	}
 	
 	//METHODS
