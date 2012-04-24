@@ -12,17 +12,20 @@ public class FatBoyHero {
 		this.image = image;
 	}
 
-	public void update(Controller controller)
-	{
-		if(controller.keys[KeyEvent.VK_D]) 
+	public void update(Controller controller) {
+		if (controller.keys[KeyEvent.VK_D])
 			x += 0.005;
-		if(controller.keys[KeyEvent.VK_A]) 
+		if (controller.keys[KeyEvent.VK_A])
 			x -= 0.005;
+
+		x += 0.005 - (0.005 * tjockhet);
+
 		
-		x += 0.005-(0.005*tjockhet);
-		
-		if(x >= 1.7)
+		if(x < 0.1)
+			x = 0.1;
+		else if (x >= 1.7)
 			main.endGame();
+		
 	}
 
 	public void render(Graphics2D g) {
@@ -31,8 +34,8 @@ public class FatBoyHero {
 		int absoluteX = (int) (x * GameCanvas.height());
 		int absoluteY = (int) (y * GameCanvas.height());
 
-		g.drawImage(image, absoluteX, absoluteY, (int) (300 * tjockhet),
-				(int) (300 * tjockhet), null);
+		g.drawImage(image, absoluteX, absoluteY, (int) (400 * tjockhet),
+				(int) (400 * tjockhet), null);
 		// g.translate(-x,-y);
 	}
 }
