@@ -15,8 +15,10 @@ import javax.imageio.ImageIO;
 public class GameCanvas extends Canvas implements Runnable {
 	// FIELDS
 	private boolean running;
+	private boolean titleScreenShow;
 	private Image backgroundImage;
 	private Image fatBoyImage;
+	private Image titleScreen;
 	private Disk disk;
 	private FatBoyHero hero;
 	private Controller controller = new Controller();
@@ -37,11 +39,23 @@ public class GameCanvas extends Canvas implements Runnable {
 		// setBounds(0,0,screenSize.width, screenSize.height);
 
 		// Choosable dimension settings
+		
+		titleScreenShow = true;
 
 		setPreferredSize(dim);
 
 		addKeyListener(controller);
 
+		initializeImages();
+
+		fatBoyImage = makeColorTransparent((BufferedImage) fatBoyImage);
+		hero = new FatBoyHero(fatBoyImage);
+
+		disk = new Disk();
+	}
+	
+	private void initializeImages()
+	{
 		try {
 			backgroundImage = ImageIO.read(getClass().getResource(
 					"BackgroundFit.jpg"));
@@ -54,11 +68,12 @@ public class GameCanvas extends Canvas implements Runnable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		fatBoyImage = makeColorTransparent((BufferedImage) fatBoyImage);
-		hero = new FatBoyHero(fatBoyImage);
-
-		disk = new Disk();
+		
+		try {
+			titleScreen = ImageIO.read(getClass().getResource("FatBoyTitlePixelated.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	// METHODS
@@ -95,18 +110,24 @@ public class GameCanvas extends Canvas implements Runnable {
 	/**
 	 * Render handles graphic rendering.
 	 */
-	private void render() {
+	private void render() 
+	{
 		BufferStrategy strategy = getBufferStrategy();
 		Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
+		
+		if(titleScreenShow)
+		{
+			g.drawImage(titleScreen, 0, 0, getWidth(), getHeight(), null);
+		}
 
-		// g.setColor(Color.BLACK);
-		// g.fillRect(0, 0, getWidth(), getHeight());
-
+		else
+		{
 		g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), null);
 
 		hero.render(g);
 
 		disk.render(g);
+		}
 
 		strategy.show();
 	}
@@ -115,10 +136,17 @@ public class GameCanvas extends Canvas implements Runnable {
 	 * Update
 	 */
 	private void update() {
+		if (controller.keys[KeyEvent.VK_ENTER])
+		{
+			titleScreenShow=false;
+		}
 		if (controller.keys[KeyEvent.VK_ESCAPE]) {
 			// Close here.
 		}
-		hero.update(controller);
+		if(!titleScreenShow)
+		{
+			hero.update(controller);
+		}
 	}
 
 	/**
