@@ -11,7 +11,7 @@ public class TitleScreen
 	public TitleScreen(Image img)
 	{
 		titleScreen = img;
-		showTitleScreen=true;
+		showTitleScreen=false; //Ändrad för att slippa titleScreen under testning. Ändra tbax!
 		
 	}
 	
