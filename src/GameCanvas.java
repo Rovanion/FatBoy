@@ -104,10 +104,8 @@ public class GameCanvas extends Canvas implements Runnable {
 
 		g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), null);
 
-		g.setColor(Color.ORANGE);
-		g.fillRect(550, 520, 2000, 6);
-
 		hero.render(g);
+
 		disk.render(g);
 
 		strategy.show();

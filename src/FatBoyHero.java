@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -22,19 +23,27 @@ public class FatBoyHero {
 		
 		if(x < 0.1)
 			x = 0.1;
-		else if (x >= 1.7)
+		else if (x >= 1)
 			main.endGame();
 		
 	}
 
 	public void render(Graphics2D g) {
-		// g.translate(x, y);
 
-		int absoluteX = (int) (x * GameCanvas.height());
+
+		int absoluteX = (int) (x * GameCanvas.width());
 		int absoluteY = (int) (y * GameCanvas.height());
-
-		g.drawImage(image, absoluteX, absoluteY, (int) (400 * tjockhet),
+		
+		//Set the coordinate system relative to the fat boy
+		g.translate(absoluteX, absoluteY);
+		
+		g.drawImage(image, 0, 0, (int) (400 * tjockhet),
 				(int) (400 * tjockhet), null);
-		// g.translate(-x,-y);
+		
+		g.setColor(Color.ORANGE);
+		g.fillRect((int)(0.09*GameCanvas.height()), (int)(0.08*GameCanvas.width()), 2000, 6);
+		
+		//Reset the coordinate system to the top left of the screen
+		g.translate(-absoluteX, -absoluteY);
 	}
 }
