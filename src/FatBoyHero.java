@@ -12,6 +12,7 @@ public class FatBoyHero
 	private double dx = 0;
 	private double dy = 0;
 	private double fatLevel = 1;
+	private double counterLimit = 0.05;
 	private int jump = 0;
 
 	//CONSTRUCTOR
@@ -28,18 +29,23 @@ public class FatBoyHero
 	{
 
 		// OBS! Endast för testning!
-		fatLevel -= 0.00005;
+		
 		// Ska ersättas med spelmekanik senare!
 
 		// Förflyttning i X-led
 		dx = dx * (1 - 0.1 * fatLevel);
 
 		if (controller.keys[KeyEvent.VK_RIGHT]|| controller.keys[KeyEvent.VK_D])
+		{
 			dx += 0.0004 * fatLevel;
+		}
 		if (controller.keys[KeyEvent.VK_LEFT] || controller.keys[KeyEvent.VK_A])
+		{
 			dx -= 0.0002 * fatLevel;
+			fatLevel -= 0.0003;
+		}
 		
-		dx += 0.004 - (0.004 * fatLevel);
+		//dx += 0.004 - (0.004 * fatLevel);
 		x += dx;
 
 		/*
@@ -47,10 +53,12 @@ public class FatBoyHero
 		 * the map and terminates the game if they go outside of the screen to
 		 * the right.
 		 */
-		if (x < 0.1) {
-			x = 0.1;
+		if (x < counterLimit)
+		{
+			x = counterLimit;
 			dx = 0;
-		} else if (x >= 0.9)
+		} 
+		else if (x >= 0.9)
 			main.endGame();
 
 		// Förflyttning i Y-led
@@ -87,13 +95,15 @@ public class FatBoyHero
 
 		// Set the coordinate system relative to the fat boy
 		g.translate(absoluteX, absoluteY);
+		
+		g.setColor(Color.ORANGE);
+		g.fillRect((int) (0.12 * GameCanvas.width()),
+				(int) (0.20 * GameCanvas.height()), 2000, 6);
 
 		g.drawImage(image, 0, 0, (int) (300 * fatLevel),
-				(int) (300 * (1 - 0.2 * fatLevel)), null);
+				(int) (300 /*(1 - 0.2 * fatLevel)*/), null);
 
-		g.setColor(Color.ORANGE);
-		g.fillRect((int) (0.25 * GameCanvas.height()),
-				(int) (0.09 * GameCanvas.width()), 2000, 6);
+		
 
 		// Reset the coordinate system to the top left of the screen
 		g.translate(-absoluteX, -absoluteY);
