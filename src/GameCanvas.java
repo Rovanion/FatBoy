@@ -92,6 +92,9 @@ public class GameCanvas extends Canvas implements Runnable {
 				e.printStackTrace();
 				running = false;
 			}
+			
+			if(controller.keys[KeyEvent.VK_RIGHT])
+				System.exit(0);
 		}
 	}
 
