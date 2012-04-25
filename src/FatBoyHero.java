@@ -3,35 +3,43 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 
-public class FatBoyHero {
+public class FatBoyHero 
+{
+	//FIELDS
 	private Image image;
 	private double x = 0.5;
 	private double y = 0.7;
 	private double dx = 0;
 	private double dy = 0;
-	private double tjockhet = 1;
-	private int hoppat = 0;
+	private double fatLevel = 1;
+	private int jump = 0;
 
+	//CONSTRUCTOR
 	public FatBoyHero(Image image) {
 		this.image = image;
 	}
 
-	public void update(Controller controller) {
+	//METHODS
+	/**
+	 * Update keeps track on FatBoy's movement corresponding to the controller.
+	 * @param controller
+	 */
+	public void update(Controller controller) 
+	{
 
 		// OBS! Endast för testning!
-		tjockhet -= 0.0005;
+		fatLevel -= 0.00005;
 		// Ska ersättas med spelmekanik senare!
 
 		// Förflyttning i X-led
-		dx = dx * (1 - 0.1 * tjockhet);
+		dx = dx * (1 - 0.1 * fatLevel);
 
-		if (controller.keys[KeyEvent.VK_RIGHT]
-				|| controller.keys[KeyEvent.VK_D])
-			dx += 0.005 * tjockhet;
+		if (controller.keys[KeyEvent.VK_RIGHT]|| controller.keys[KeyEvent.VK_D])
+			dx += 0.0004 * fatLevel;
 		if (controller.keys[KeyEvent.VK_LEFT] || controller.keys[KeyEvent.VK_A])
-			dx -= 0.005 * tjockhet;
-		dx += 0.004 - (0.004 * tjockhet);
-
+			dx -= 0.0002 * fatLevel;
+		
+		dx += 0.004 - (0.004 * fatLevel);
 		x += dx;
 
 		/*
@@ -42,16 +50,16 @@ public class FatBoyHero {
 		if (x < 0.1) {
 			x = 0.1;
 			dx = 0;
-		} else if (x >= 1)
+		} else if (x >= 0.9)
 			main.endGame();
 
 		// Förflyttning i Y-led
 		if (controller.keys[KeyEvent.VK_UP] || controller.keys[KeyEvent.VK_W]) {
-			hoppat++;
-			if (hoppat < 12) {
-				if (hoppat == 1)
-					dy = -0.06 * (1 - 0.65 * tjockhet);
-				dy -= 0.01 * (1 - 0.65 * tjockhet);
+			jump++;
+			if (jump < 12) {
+				if (jump == 1)
+					dy = -0.06 * (1 - 0.65 * fatLevel);
+				dy -= 0.01 * (1 - 0.65 * fatLevel);
 			}
 		}
 
@@ -61,12 +69,12 @@ public class FatBoyHero {
 		 * If the player has jumped; Once he reaches the ground level again
 		 * reset his speed and y-position.
 		 */
-		if (hoppat > 0) {
-			dy += 0.004;
+		if (jump > 0) {
+			dy += 0.002;
 			if (y > 0.7) {
 				dy = 0;
 				y = 0.7;
-				hoppat = 0;
+				jump = 0;
 			}
 		}
 
@@ -80,8 +88,8 @@ public class FatBoyHero {
 		// Set the coordinate system relative to the fat boy
 		g.translate(absoluteX, absoluteY);
 
-		g.drawImage(image, 0, 0, (int) (300 * tjockhet),
-				(int) (300 * (1 - 0.2 * tjockhet)), null);
+		g.drawImage(image, 0, 0, (int) (300 * fatLevel),
+				(int) (300 * (1 - 0.2 * fatLevel)), null);
 
 		g.setColor(Color.ORANGE);
 		g.fillRect((int) (0.25 * GameCanvas.height()),
