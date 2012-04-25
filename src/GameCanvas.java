@@ -93,7 +93,7 @@ public class GameCanvas extends Canvas implements Runnable {
 				running = false;
 			}
 			
-			if(controller.keys[KeyEvent.VK_RIGHT])
+			if(controller.keys[KeyEvent.VK_ESCAPE])
 				System.exit(0);
 		}
 	}
