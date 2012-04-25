@@ -17,7 +17,6 @@ public class FatBoyHero {
 			x += 0.005;
 		if (controller.keys[KeyEvent.VK_A])
 			x -= 0.005;
-
 		x += 0.005 - (0.005 * tjockhet);
 
 		
