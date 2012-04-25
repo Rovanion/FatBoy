@@ -7,24 +7,49 @@ public class FatBoyHero {
 	private Image image;
 	private double x = 0.5;
 	private double y = 0.8;
+	private double dy = 0;
 	private double tjockhet = 0.5;
+	private int hoppat  = 0;
 
 	public FatBoyHero(Image image) {
 		this.image = image;
 	}
 
 	public void update(Controller controller) {
-		if (controller.keys[KeyEvent.VK_D])
+		//Förflyttning i X-led
+		if (controller.keys[KeyEvent.VK_RIGHT])
 			x += 0.005;
-		if (controller.keys[KeyEvent.VK_A])
+		if (controller.keys[KeyEvent.VK_LEFT])
 			x -= 0.005;
-		x += 0.005 - (0.005 * tjockhet);
+		x += 0.004 - (0.004 * tjockhet);
 
-		
 		if(x < 0.1)
 			x = 0.1;
 		else if (x >= 1)
 			main.endGame();
+		
+		
+		//Förflyttning i Y-led
+		if(controller.keys[KeyEvent.VK_UP]){
+			hoppat++;
+			if(hoppat < 10){
+				if(hoppat == 1)
+					dy = -0.05;
+				dy -= 0.01;
+			}
+		}
+		
+		y += dy;
+		
+		if(hoppat > 0){
+			dy += 0.005;
+			if(y > 0.8){
+				dy = 0;
+				y = 0.8;
+				hoppat = 0;
+			}
+		}
+		
 		
 	}
 
