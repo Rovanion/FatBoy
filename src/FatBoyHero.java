@@ -32,17 +32,21 @@ public class FatBoyHero {
 		//Förflyttning i Y-led
 		if(controller.keys[KeyEvent.VK_UP]){
 			hoppat++;
-			if(hoppat < 10){
+			if(hoppat < 12){if(y > 0.8){
+				dy = 0;
+				y = 0.8;
+				hoppat = 0;
+			}
 				if(hoppat == 1)
-					dy = -0.05;
-				dy -= 0.01;
+					dy = -0.06 * (1 - tjockhet);
+				dy -= 0.01 * (1 - tjockhet);
 			}
 		}
 		
 		y += dy;
 		
 		if(hoppat > 0){
-			dy += 0.005;
+			dy += 0.004;
 			if(y > 0.8){
 				dy = 0;
 				y = 0.8;
