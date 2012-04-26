@@ -22,6 +22,11 @@ public class FatBoyHero
 	}
 
 	//METHODS
+	public double getFatLevel()
+	{
+		return fatLevel;
+	}
+	
 	/**
 	 * Update keeps track on FatBoy's movement corresponding to the controller.
 	 * @param controller
@@ -123,10 +128,7 @@ public class FatBoyHero
 		int absoluteX = (int) (x * GameCanvas.width());
 		int absoluteY = (int) (y * GameCanvas.height());
 		
-		//Sets the FatMeter
-		g.setColor(Color.YELLOW);
-		g.fillRect((int) (0.05 * GameCanvas.width()),
-				(int) (0.98 * GameCanvas.height()), 40, (int)(-200*(fatLevel-0.8))); //-200 = max , 0 = min
+		
 
 		// Set the coordinate system relative to the fat boy
 		g.translate(absoluteX, absoluteY);
