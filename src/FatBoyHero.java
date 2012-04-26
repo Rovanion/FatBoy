@@ -11,7 +11,7 @@ public class FatBoyHero
 	private double y = 0.7;
 	private double dx = 0;
 	private double dy = 0;
-	private double fatLevel = 1; //Max:1.7 , Min:0.82 (Med dessa slipper änden av repet synas vid något av tillfällen fet-smal.
+	private double fatLevel = 1.6; //Max:1.7 , Min:0.82 (Med dessa slipper änden av repet synas vid något av tillfällen fet-smal.
 	private double counterLimit = 0.05;
 	private double groundLevel = 0.7;
 	private int jump = 0;
@@ -30,18 +30,29 @@ public class FatBoyHero
 	{
 		// Movement X-axis
 		dx = dx * (1 - 0.1 * fatLevel);
+		
 
-		if (controller.keys[KeyEvent.VK_RIGHT]|| controller.keys[KeyEvent.VK_D])
+		dx += 0.00005*(1.5-x)*(0.8*fatLevel); //Elastic rope: ForcePull=k*xChange*percentageOfMass
+		if(fatLevel<0.82)
+		{
+			dx+=0.0003; //If too thin you get dragged out.
+		}
+		else if(fatLevel>1.5)
+		{
+			dx=dx/4;
+		}
+		//dx += 0.004 - (0.004 * fatLevel);
+
+		if (controller.keys[KeyEvent.VK_RIGHT]|| controller.keys[KeyEvent.VK_D]) //MOVE RIGHT
 		{
 			dx += 0.0003 * fatLevel;
 		}
-		if (controller.keys[KeyEvent.VK_LEFT] || controller.keys[KeyEvent.VK_A])
+		if (controller.keys[KeyEvent.VK_LEFT] || controller.keys[KeyEvent.VK_A]) //MOVE LEFT
 		{
 			dx -= 0.00015 * fatLevel;
-			fatLevel -= 0.0003;
+			fatLevel -= 0.0003; //Moving against the rope's force burns fatpoints.
 		}
 		
-		//dx += 0.004 - (0.004 * fatLevel);
 		x += dx;
 		
 		limitScreenMovement();
@@ -75,13 +86,17 @@ public class FatBoyHero
 		}
 	}
 	
+	/**
+	 * JUMP
+	 * Changes the y-ccordinates.
+	 */
 	private void jump()
 	{
 		jump++;
 		if (jump < 12) {
 			if (jump == 1)
-				dy = -0.004 * (1 - 0.65 * fatLevel);
-			dy -= 0.007 * (1 - 0.65 * fatLevel);
+				dy = -0.005 * (1 - 0.25 * fatLevel);
+			dy -= 0.004 * (1 - 0.25 * fatLevel);
 		}
 	}
 	
