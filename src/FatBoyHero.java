@@ -11,7 +11,7 @@ public class FatBoyHero
 	private double y = 0.7;
 	private double dx = 0;
 	private double dy = 0;
-	private double fatLevel = 1.6; //Max:1.7 , Min:0.82 (Med dessa slipper änden av repet synas vid något av tillfällen fet-smal.
+	private double fatLevel = 1.8; //Max:1.8 , Min:0.8 (Med dessa slipper änden av repet synas vid något av tillfällen fet-smal.
 	private double counterLimit = 0.05;
 	private double groundLevel = 0.7;
 	private int jump = 0;
@@ -122,14 +122,30 @@ public class FatBoyHero
 
 		int absoluteX = (int) (x * GameCanvas.width());
 		int absoluteY = (int) (y * GameCanvas.height());
+		
+		//Sets the FatMeter
+		g.setColor(Color.YELLOW);
+		g.fillRect((int) (0.05 * GameCanvas.width()),
+				(int) (0.98 * GameCanvas.height()), 40, (int)(-200*(fatLevel-0.8))); //-200 = max , 0 = min
 
 		// Set the coordinate system relative to the fat boy
 		g.translate(absoluteX, absoluteY);
 		
-		g.setColor(Color.ORANGE);
-		g.fillRect((int) (0.14 * GameCanvas.width()),
+		//Set the rope not to show when size differs.
+		int ropeXcoord;
+		if(fatLevel>1.0)
+		{
+			ropeXcoord = (int) (0.15 * GameCanvas.width());
+		}
+		else
+		{
+			ropeXcoord = (int) (0.1 * GameCanvas.width());
+		}
+		g.setColor(Color.orange);
+		g.fillRect(ropeXcoord,
 				(int) (0.20 * GameCanvas.height()), 2000, 6);
 
+		
 		g.drawImage(image, 0, 0, (int) (300 * fatLevel),
 				(int) (300 /*(1 - 0.2 * fatLevel)*/), null);
 
