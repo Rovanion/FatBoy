@@ -15,14 +15,15 @@ import javax.imageio.ImageIO;
 public class GameCanvas extends Canvas implements Runnable {
 	// FIELDS
 	private boolean running;
-	private boolean titleScreenShow;
 	private Image backgroundImage;
 	private Image fatBoyImage;
 	private Image titleScreen;
 	private Disk disk;
 	private FatBoyHero hero;
 	private Controller controller = new Controller();
+	//private static Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 	private static Dimension dim = new Dimension(1280, 720);
+	private TitleScreen title;
 
 	public static int height() {
 		return dim.height;
@@ -33,20 +34,15 @@ public class GameCanvas extends Canvas implements Runnable {
 	}
 
 	// CONSTRUCTOR
-	public GameCanvas() {
-		// Fullscreen Settings
-		// Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		// setBounds(0,0,screenSize.width, screenSize.height);
-
-		// Choosable dimension settings
-		
-		titleScreenShow = true;
-
+	public GameCanvas() 
+	{
 		setPreferredSize(dim);
 
 		addKeyListener(controller);
 
 		initializeImages();
+		
+		title = new TitleScreen(titleScreen);
 
 		fatBoyImage = makeColorTransparent((BufferedImage) fatBoyImage);
 		hero = new FatBoyHero(fatBoyImage);
@@ -54,6 +50,9 @@ public class GameCanvas extends Canvas implements Runnable {
 		disk = new Disk();
 	}
 	
+	/**
+	 * InitializeImages fetches the images at start up.
+	 */
 	private void initializeImages()
 	{
 		try {
@@ -118,18 +117,25 @@ public class GameCanvas extends Canvas implements Runnable {
 		BufferStrategy strategy = getBufferStrategy();
 		Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
 		
-		if(titleScreenShow)
+		if(title.isShowTitleScreen())
 		{
-			g.drawImage(titleScreen, 0, 0, getWidth(), getHeight(), null);
+			title.render(g, getWidth(), getHeight());
 		}
 
 		else
 		{
 		g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), null);
-
-		hero.render(g);
-
+		
+		//Sets the FatMeter
+		g.setColor(Color.YELLOW);
+		g.fillRect((int) (0.05 * GameCanvas.width()), 
+				(int) (0.98 * GameCanvas.height()), 40, (int)(-200*(hero.getFatLevel()-0.8))); //-200 = max , 0 = min
+		
 		disk.render(g);
+		hero.render(g);
+		
+		
+		
 		}
 
 		strategy.show();
@@ -138,17 +144,18 @@ public class GameCanvas extends Canvas implements Runnable {
 	/**
 	 * Update
 	 */
-	private void update() {
-		if (controller.keys[KeyEvent.VK_ENTER])
-		{
-			titleScreenShow=false;
-		}
+	private void update()
+	{
 		if (controller.keys[KeyEvent.VK_ESCAPE]) {
-			// Close here.
+			main.endGame();
 		}
-		if(!titleScreenShow)
+		if(!title.isShowTitleScreen())
 		{
 			hero.update(controller);
+		}
+		else
+		{
+			title.update(controller);
 		}
 	}
 
