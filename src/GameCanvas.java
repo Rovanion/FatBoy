@@ -48,9 +48,7 @@ public class GameCanvas extends Canvas implements Runnable {
 
 		initializeImages();
 
-		fatBoyImage = makeColorTransparent((BufferedImage) fatBoyImage);
 		hero = new FatBoyHero(fatBoyImage);
-
 		disk = new Disk();
 	}
 	
