@@ -40,6 +40,16 @@ public class FatBoyHero {
 		} 
 		else if (fatLevel > 1.5) {
 			dx = dx / 4;
+		
+
+		dx += 0.00005*(1.5-x)*(0.8*fatLevel); //Elastic rope: ForcePull=k*xChange*percentageOfMass
+		if(fatLevel<0.82)
+		{
+			dx+=0.0003; //If too thin you get dragged out.
+		}
+		else if(fatLevel>1.5)
+		{
+			dx=dx/4;
 		}
 		// dx += 0.004 - (0.004 * fatLevel);
 
@@ -48,7 +58,7 @@ public class FatBoyHero {
 		}
 		if (controller.keys[KeyEvent.VK_LEFT] || controller.keys[KeyEvent.VK_A]){
 			dx -= 0.00015 * fatLevel;
-			//Moving against the rope force burns fat
+			//Moving against the rope's force burns fat
 			fatLevel -= 0.0003;
 		}
 
@@ -119,12 +129,26 @@ public class FatBoyHero {
 
 		int absoluteX = (int) (x * GameCanvas.width());
 		int absoluteY = (int) (y * GameCanvas.height());
+		
+		//Sets the FatMeter
+		g.setColor(Color.YELLOW);
+		g.fillRect((int) (0.05 * GameCanvas.width()),
+				(int) (0.98 * GameCanvas.height()), 40, (int)(-200*(fatLevel-0.8))); //-200 = max , 0 = min
 
-		// Set origaa to the upper left corner of the boy
 		g.translate(absoluteX, absoluteY);
 
-		g.setColor(Color.ORANGE);
-		g.fillRect((int) (0.1 * GameCanvas.width()),
+		//Set the rope not to show when size differs.
+		int ropeXcoord;
+		if(fatLevel>1.0)
+		{
+			ropeXcoord = (int) (0.15 * GameCanvas.width());
+		}
+		else
+		{
+			ropeXcoord = (int) (0.1 * GameCanvas.width());
+		}
+		g.setColor(Color.orange);
+		g.fillRect(ropeXcoord,
 				(int) (0.20 * GameCanvas.height()), 2000, 6);
 
 		g.drawImage(image, 0, 0, (int) (GameCanvas.width() * 0.1 * fatLevel), 
