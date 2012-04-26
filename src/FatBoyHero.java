@@ -11,8 +11,9 @@ public class FatBoyHero
 	private double y = 0.7;
 	private double dx = 0;
 	private double dy = 0;
-	private double fatLevel = 1;
+	private double fatLevel = 1; //Max:1.7 , Min:0.82 (Med dessa slipper ‰nden av repet synas vid nÂgot av tillf‰llen fet-smal.
 	private double counterLimit = 0.05;
+	private double groundLevel = 0.7;
 	private int jump = 0;
 
 	//CONSTRUCTOR
@@ -27,65 +28,79 @@ public class FatBoyHero
 	 */
 	public void update(Controller controller) 
 	{
-
-		// OBS! Endast f√∂r testning!
-		
-		// Ska ers√§ttas med spelmekanik senare!
-
-		// F√∂rflyttning i X-led
+		// Movement X-axis
 		dx = dx * (1 - 0.1 * fatLevel);
 
 		if (controller.keys[KeyEvent.VK_RIGHT]|| controller.keys[KeyEvent.VK_D])
 		{
-			dx += 0.0004 * fatLevel;
+			dx += 0.0003 * fatLevel;
 		}
 		if (controller.keys[KeyEvent.VK_LEFT] || controller.keys[KeyEvent.VK_A])
 		{
-			dx -= 0.0002 * fatLevel;
+			dx -= 0.00015 * fatLevel;
 			fatLevel -= 0.0003;
 		}
 		
 		//dx += 0.004 - (0.004 * fatLevel);
 		x += dx;
+		
+		limitScreenMovement();
 
-		/*
-		 * Makes the player stop if they reach the counter at the left side of
-		 * the map and terminates the game if they go outside of the screen to
-		 * the right.
-		 */
+		// Movement Y-axis
+		if (controller.keys[KeyEvent.VK_UP] || controller.keys[KeyEvent.VK_W]) 
+		{
+			jump();
+		}
+		
+		y += dy;
+
+		resetGroundLevel();	
+	}
+	
+	/**SCREEN LIMITATION
+	 * Makes the player stop if they reach the counter at the left side of
+	 * the map and terminates the game if they go outside of the screen to
+	 * the right.
+	 */
+	private void limitScreenMovement()
+	{
 		if (x < counterLimit)
 		{
 			x = counterLimit;
 			dx = 0;
 		} 
 		else if (x >= 0.9)
+		{
 			main.endGame();
-
-		// F√∂rflyttning i Y-led
-		if (controller.keys[KeyEvent.VK_UP] || controller.keys[KeyEvent.VK_W]) {
-			jump++;
-			if (jump < 12) {
-				if (jump == 1)
-					dy = -0.06 * (1 - 0.65 * fatLevel);
-				dy -= 0.01 * (1 - 0.65 * fatLevel);
-			}
 		}
-
-		y += dy;
-
-		/*
-		 * If the player has jumped; Once he reaches the ground level again
-		 * reset his speed and y-position.
-		 */
-		if (jump > 0) {
-			dy += 0.002;
-			if (y > 0.7) {
+	}
+	
+	private void jump()
+	{
+		jump++;
+		if (jump < 12) {
+			if (jump == 1)
+				dy = -0.004 * (1 - 0.65 * fatLevel);
+			dy -= 0.007 * (1 - 0.65 * fatLevel);
+		}
+	}
+	
+	/**RESET GROUND LEVEL
+	 * If the player has jumped; Once he reaches the ground level again
+	 * reset his speed and y-position.
+	 */
+	private void resetGroundLevel()
+	{
+		if (jump > 0) 
+		{
+			dy += 0.0009;
+			if (y > groundLevel) 
+			{
 				dy = 0;
-				y = 0.7;
+				y = groundLevel;
 				jump = 0;
 			}
 		}
-
 	}
 
 	public void render(Graphics2D g) {
@@ -97,7 +112,7 @@ public class FatBoyHero
 		g.translate(absoluteX, absoluteY);
 		
 		g.setColor(Color.ORANGE);
-		g.fillRect((int) (0.12 * GameCanvas.width()),
+		g.fillRect((int) (0.14 * GameCanvas.width()),
 				(int) (0.20 * GameCanvas.height()), 2000, 6);
 
 		g.drawImage(image, 0, 0, (int) (300 * fatLevel),
