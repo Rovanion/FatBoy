@@ -11,7 +11,10 @@ public class FatBoyHero {
 	private double dx = 0;
 	private double dy = 0;
 	private double fatLevel = 1.6;
-	private double counterLimit = 0.05;
+	
+
+
+	private double counterLimit = 0.09;
 	private double groundLevel = 0.8;
 	private int jumpKeyPresses = 0;
 	private boolean jumping = false;
@@ -22,6 +25,10 @@ public class FatBoyHero {
 	}
 
 	// METHODS
+	public double getFatLevel() {
+		return fatLevel;
+	}
+	
 	/**
 	 * Update keeps track on FatBoy's movement corresponding to the controller.
 	 * 
@@ -113,11 +120,6 @@ public class FatBoyHero {
 
 		int absoluteX = (int) (x * GameCanvas.width());
 		int absoluteY = (int) (y * GameCanvas.height());
-		
-		//Sets the FatMeter
-		g.setColor(Color.YELLOW);
-		g.fillRect((int) (0.05 * GameCanvas.width()),
-				(int) (0.98 * GameCanvas.height()), 40, (int)(-200*(fatLevel-0.8))); //-200 = max , 0 = min
 
 		g.translate(absoluteX, absoluteY);
 
