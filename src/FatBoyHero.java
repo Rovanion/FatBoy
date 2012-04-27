@@ -11,9 +11,6 @@ public class FatBoyHero {
 	private double dx = 0;
 	private double dy = 0;
 	private double fatLevel = 1.6;
-	
-
-
 	private double counterLimit = 0.09;
 	private double groundLevel = 0.8;
 	private int jumpKeyPresses = 0;
@@ -23,11 +20,9 @@ public class FatBoyHero {
 	public FatBoyHero(Image image) {
 		this.image = image;
 	}
-
-
+	
 	//METHODS
-	public double getFatLevel()
-	{
+	public double getFatLevel(){
 		return fatLevel;
 	}
 	
@@ -127,11 +122,11 @@ public class FatBoyHero {
 
 
 		g.setColor(Color.orange);
-		g.fillRect((int) (0.03 * GameCanvas.width()),
+		g.fillRect((int) (0.01 * GameCanvas.width()),
 				(int) (0.08 * GameCanvas.height()), 2000, 6);
 
-		g.drawImage(image, 0, 0, (int) (GameCanvas.width() * 0.1 * fatLevel), 
-						(int) (GameCanvas.height() * 0.15), null);
+		g.drawImage(image, 0, 0, (int) (GameCanvas.width() * 0.075 * fatLevel), 
+						(int) (GameCanvas.height() * 0.125), null);
 
 		// Reset the coordinate system to the top left of the screen
 		g.translate(-absoluteX, -absoluteY);
