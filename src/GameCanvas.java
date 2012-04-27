@@ -128,7 +128,7 @@ public class GameCanvas extends Canvas implements Runnable {
 		{
 		g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), null);
 
-		//Sets the FatMeter
+		//Sets the FatMeter according to FatBoy's FatPoints.
 		int fatMeterLevel=0;
 		if(hero.getFatLevel()>0.8 && hero.getFatLevel()<1.8)
 		{
