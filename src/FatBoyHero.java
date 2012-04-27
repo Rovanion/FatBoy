@@ -24,8 +24,10 @@ public class FatBoyHero {
 		this.image = image;
 	}
 
-	// METHODS
-	public double getFatLevel() {
+
+	//METHODS
+	public double getFatLevel()
+	{
 		return fatLevel;
 	}
 	
