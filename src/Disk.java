@@ -7,12 +7,12 @@ import javax.imageio.ImageIO;
 
 public class Disk {
 	private Image diskImage;
-	private double x = -0.1;
-	private double y = 0.75;
+	private double x = -0.2;
+	private double y = 0.49;
 
 	public Disk() {
 		try {
-			diskImage = ImageIO.read(getClass().getResource("testbild.jpg"));
+			diskImage = ImageIO.read(getClass().getResource("Counter.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
