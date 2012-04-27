@@ -39,8 +39,6 @@ public class GameCanvas extends Canvas implements Runnable {
 		// setBounds(0,0,screenSize.width, screenSize.height);
 
 		// Choosable dimension settings
-		
-		titleScreenShow = true;
 
 		setPreferredSize(dim);
 
@@ -125,9 +123,18 @@ public class GameCanvas extends Canvas implements Runnable {
 		{
 		g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), null);
 
-		hero.render(g);
-
+		//Sets the FatMeter
+		int fatMeterLevel=0;
+		if(hero.getFatLevel()>0.8 && hero.getFatLevel()<1.8)
+		{
+			fatMeterLevel=(int)(-200*(hero.getFatLevel()-0.8));
+		}
+		g.setColor(Color.YELLOW);
+		g.fillRect((int) (0.05 * GameCanvas.width()),
+				(int) (0.98 * GameCanvas.height()), 40, fatMeterLevel); //-200 = max , 0 = min
 		disk.render(g);
+		hero.render(g);
+		
 		}
 
 		strategy.show();
