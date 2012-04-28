@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -152,7 +151,7 @@ public class GameCanvas extends Canvas implements Runnable {
 	private void update()
 	{
 		if (controller.keys[KeyEvent.VK_ESCAPE]) {
-			main.endGame();
+			Main.endGame();
 		}
 		if(!title.isShowTitleScreen())
 		{

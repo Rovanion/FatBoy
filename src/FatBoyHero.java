@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -96,7 +95,7 @@ public class FatBoyHero {
 			x = counterLimit;
 			dx = 0;
 		} else if (x >= 1) {
-			main.endGame();
+			Main.endGame();
 		}
 	}
 

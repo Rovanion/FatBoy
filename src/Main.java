@@ -5,14 +5,14 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 
-public class main {
+public class Main {
 
 	/**
 	 * Main jump starts the application.
 	 * 
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public static void Main(String[] args) {
 		GameCanvas newCanvas = new GameCanvas();
 		CreateFrame frame = new CreateFrame(newCanvas);
 	}
