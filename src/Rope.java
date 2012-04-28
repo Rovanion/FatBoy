@@ -28,6 +28,8 @@ public class Rope {
 	}
 
 	public void render(Graphics2D g, double fatLevel) {
+		g.translate((int) (0.065 * GameCanvas.width() * fatLevel), (int) (0.07 * GameCanvas.height()));
+		
 		AffineTransform currentTransform = g.getTransform();
 		currentTransform.getMatrix(positionMatrix);
 
@@ -38,12 +40,12 @@ public class Rope {
 				+ Math.pow(momY - boyPositionY, 2));
 		angle = Math.asin((boyPositionY - momY) / ropeLength);
 		
-		g.translate((int) (0.05 * GameCanvas.width() * fatLevel), (int) (0.05 * GameCanvas.height()));
+		
 		g.rotate(-angle);
 
 		g.drawImage(ropeTexture, 0, 0, (int) ropeLength, 6, null);
 		
 		g.rotate(angle);
-		g.translate(-(int) (0.05 * GameCanvas.width() * fatLevel), -(int) (0.05 * GameCanvas.height()));
+		g.translate(-(int) (0.065 * GameCanvas.width() * fatLevel), -(int) (0.07 * GameCanvas.height()));
 	}
 }
