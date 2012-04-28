@@ -16,11 +16,11 @@ public class Rope {
 	private int boyPositionY;
 
 	public Rope() {
-		momX = (int) (GameCanvas.width() + 0.1 * GameCanvas.width());
-		momY = (int) (GameCanvas.height() * 0.6);
+		momX = (int) (GameCanvas.width() + 0.08 * GameCanvas.width());
+		momY = (int) (GameCanvas.height() * 0.65);
 
 		try {
-			ropeTexture = ImageIO.read(getClass().getResource("testbild.jpg"));
+			ropeTexture = ImageIO.read(getClass().getResource("Rope.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -28,8 +28,8 @@ public class Rope {
 	}
 
 	public void render(Graphics2D g, double fatLevel) {
-		g.translate((int) (0.065 * GameCanvas.width() * fatLevel),
-				(int) (0.07 * GameCanvas.height()));
+		g.translate((int) (0.06 * GameCanvas.width() * fatLevel),
+				(int) (0.06 * GameCanvas.height()));
 
 		AffineTransform currentTransform = g.getTransform();
 		currentTransform.getMatrix(positionMatrix);
@@ -42,10 +42,10 @@ public class Rope {
 		angle = Math.asin((boyPositionY - momY) / ropeLength);
 
 		g.rotate(-angle);
-		g.drawImage(ropeTexture, 0, 0, (int) ropeLength, 6, null);
+		g.drawImage(ropeTexture, 0, 0, (int) ropeLength, 24, null);
 		g.rotate(angle);
 
 		g.translate(-(int) (0.065 * GameCanvas.width() * fatLevel),
-				-(int) (0.07 * GameCanvas.height()));
+				-(int) (0.06 * GameCanvas.height()));
 	}
 }
