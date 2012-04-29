@@ -5,18 +5,18 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 
-public class Main {
+public class main {
 
 	/**
-	 * Main jump starts the application.
+	 * Main jumpstarts the application.
 	 * 
 	 * @param args
 	 */
-	public static void Main(String[] args) {
+	public static void main(String[] args) {
 		GameCanvas newCanvas = new GameCanvas();
 		CreateFrame frame = new CreateFrame(newCanvas);
 	}
-
+	
 	public static void endGame(){
 		HighScoreList list = null;
 		

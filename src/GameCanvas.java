@@ -151,7 +151,7 @@ public class GameCanvas extends Canvas implements Runnable {
 	private void update()
 	{
 		if (controller.keys[KeyEvent.VK_ESCAPE]) {
-			Main.endGame();
+			main.endGame();
 		}
 		if(!title.isShowTitleScreen())
 		{
