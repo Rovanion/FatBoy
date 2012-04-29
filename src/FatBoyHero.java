@@ -95,7 +95,7 @@ public class FatBoyHero {
 			x = counterLimit;
 			dx = 0;
 		} else if (x >= 1) {
-			Main.endGame();
+			main.endGame();
 		}
 	}
 
