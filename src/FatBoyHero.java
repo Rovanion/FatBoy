@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -15,6 +14,7 @@ public class FatBoyHero {
 	private double groundLevel = 0.8;
 	private int jumpKeyPresses = 0;
 	private boolean jumping = false;
+	private Rope theRope = new Rope();
 
 	// CONSTRUCTOR
 	public FatBoyHero(Image image) {
@@ -114,17 +114,12 @@ public class FatBoyHero {
 
 
 	public void render(Graphics2D g) {
-
 		int absoluteX = (int) (x * GameCanvas.width());
 		int absoluteY = (int) (y * GameCanvas.height());
-
 		g.translate(absoluteX, absoluteY);
 
-
-		g.setColor(Color.orange);
-		g.fillRect((int) (0.01 * GameCanvas.width()),
-				(int) (0.08 * GameCanvas.height()), 2000, 6);
-
+		theRope.render(g, fatLevel);
+		
 		g.drawImage(image, 0, 0, (int) (GameCanvas.width() * 0.075 * fatLevel), 
 						(int) (GameCanvas.height() * 0.125), null);
 

@@ -8,7 +8,7 @@ import java.io.ObjectOutputStream;
 public class main {
 
 	/**
-	 * Main jump starts the application.
+	 * Main jumpstarts the application.
 	 * 
 	 * @param args
 	 */
@@ -16,7 +16,7 @@ public class main {
 		GameCanvas newCanvas = new GameCanvas();
 		CreateFrame frame = new CreateFrame(newCanvas);
 	}
-
+	
 	public static void endGame(){
 		HighScoreList list = null;
 		

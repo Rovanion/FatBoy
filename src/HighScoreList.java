@@ -3,6 +3,8 @@ import java.io.*;
 
 public class HighScoreList extends Vector {
 
+	private static final long serialVersionUID = 5639958547778511631L;
+
 	void put(Object o) {
 		addElement(o);
 	}
