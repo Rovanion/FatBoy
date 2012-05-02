@@ -162,27 +162,4 @@ public class GameCanvas extends Canvas implements Runnable {
 			title.update(controller);
 		}
 	}
-
-	/**
-	 * MakeColorTransparent removes the frame which follows imported images.
-	 * 
-	 * @return
-	 */
-	public static BufferedImage makeColorTransparent(BufferedImage image) {
-		BufferedImage dimg = new BufferedImage(image.getWidth(),
-				image.getHeight(), BufferedImage.TYPE_INT_ARGB);
-		Graphics2D g2 = dimg.createGraphics();
-		g2.setComposite(AlphaComposite.Src);
-		g2.drawImage(image, null, 0, 0);
-		g2.dispose();
-		for (int i = 0; i < dimg.getHeight(); i++) {
-			for (int j = 0; j < dimg.getWidth(); j++) {
-				if (dimg.getRGB(j, i) == Color.WHITE.getRGB()) {
-					dimg.setRGB(j, i, 0x8F1C1C);
-				}
-			}
-		}
-		return dimg;
-	}
-
 }
