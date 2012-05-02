@@ -51,7 +51,7 @@ public class GameCanvas extends Canvas implements Runnable {
 		addKeyListener(controller);
 
 		initializeImages();
-		music = new PlayWave( "C:/Users/Robert/FatBoy/src/GameTrack02.wav" );
+		music = new PlayWave( "src/GameTrack02.wav" );
 		title = new TitleScreen(titleScreen);
 		
 		musicPlaying = false;
@@ -98,7 +98,7 @@ public class GameCanvas extends Canvas implements Runnable {
 		{
 			music.mute();
 			music.stop();
-			music = new PlayWave( "C:/Users/Robert/FatBoy/src/GameTrack04.wav" ); 
+			music = new PlayWave( "src/GameTrack04.wav" ); 
 			music.start();
 			musicPlaying = true;
 		}
