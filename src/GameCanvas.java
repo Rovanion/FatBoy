@@ -96,7 +96,6 @@ public class GameCanvas extends Canvas implements Runnable {
 		}
 		if(!title.isShowTitleScreen())
 		{
-			music.mute();
 			music.stop();
 			music = new PlayWave( "src/GameTrack04.wav" ); 
 			music.start();
