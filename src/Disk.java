@@ -16,8 +16,6 @@ public class Disk {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		diskImage = GameCanvas.makeColorTransparent((BufferedImage) diskImage);
 	}
 
 	public void render(Graphics2D g) {
