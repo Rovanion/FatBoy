@@ -52,7 +52,7 @@ public class GameCanvas extends Canvas implements Runnable {
 
 		initializeImages();
 		music = new PlayWave( "C:/Users/Robert/FatBoy/src/GameTrack02.wav" );
-		title = new TitleScreen(titleScreen, music);
+		title = new TitleScreen(titleScreen);
 		
 		musicPlaying = false;
 		musicPaused = false;
