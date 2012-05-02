@@ -7,7 +7,12 @@ import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
 
@@ -23,6 +28,8 @@ public class GameCanvas extends Canvas implements Runnable {
 	//private static Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 	private static Dimension dim = new Dimension(1280, 720);
 	private TitleScreen title;
+	private PlayWave music;
+	private boolean musicPlaying, titleMusic, musicPaused;
 
 	public static int height() {
 		return dim.height;
@@ -44,13 +51,17 @@ public class GameCanvas extends Canvas implements Runnable {
 		addKeyListener(controller);
 
 		initializeImages();
-		
+		music = new PlayWave( "C:/Users/Robert/FatBoy/src/GameTrack02.wav" );
 		title = new TitleScreen(titleScreen);
-
+		
+		musicPlaying = false;
+		musicPaused = false;
+		titleMusic = false;
+		
 		hero = new FatBoyHero(fatBoyImage);
-		disk = new Disk();
+		disk = new Disk(); 
 	}
-	
+
 	/**
 	 * InitializeImages fetches the images at start up.
 	 */
@@ -75,6 +86,25 @@ public class GameCanvas extends Canvas implements Runnable {
 			e.printStackTrace();
 		}
 	}
+	
+	private void playMusic()
+	{
+		if(!titleMusic)
+		{
+			music.start();
+			titleMusic = true;
+		}
+		if(!title.isShowTitleScreen())
+		{
+			music.mute();
+			music.stop();
+			music = new PlayWave( "C:/Users/Robert/FatBoy/src/GameTrack04.wav" ); 
+			music.start();
+			musicPlaying = true;
+		}
+		
+		
+	}
 
 	// METHODS
 	/**
@@ -83,6 +113,10 @@ public class GameCanvas extends Canvas implements Runnable {
 	 */
 	public void run() {
 		while (running) {
+			if(!musicPlaying)
+			{
+				playMusic();
+			}
 			update();
 			render();
 
@@ -95,6 +129,20 @@ public class GameCanvas extends Canvas implements Runnable {
 			
 			if(controller.keys[KeyEvent.VK_ESCAPE])
 				System.exit(0);
+			if(controller.keys[KeyEvent.VK_M])
+			{
+				if(musicPaused)
+				{
+					music.unmute();
+					musicPaused = false;
+				}
+				else
+				{
+					music.mute();
+					musicPaused = true;
+				}
+			}
+				
 		}
 	}
 
@@ -131,7 +179,7 @@ public class GameCanvas extends Canvas implements Runnable {
 		int fatMeterLevel=0;
 		if(hero.getFatLevel()>0.8 && hero.getFatLevel()<1.8)
 		{
-			fatMeterLevel=(int)(-200*(hero.getFatLevel()-0.8));
+			fatMeterLevel=(int)(-0.3*height()*(hero.getFatLevel()-0.7));
 		}
 		g.setColor(Color.YELLOW);
 		g.fillRect((int) (0.05 * GameCanvas.width()),
