@@ -22,8 +22,8 @@ public class Disk {
 
 		// g.translate(x, y);
 		
-		int absoluteX = (int) (x * GameCanvas.height());
-		int absoluteY = (int) (y * GameCanvas.height());
+		int absoluteX = (int) (x * Settings.height());
+		int absoluteY = (int) (y * Settings.height());
 
 		g.drawImage(diskImage, absoluteX, absoluteY, diskImage.getWidth(null),
 				diskImage.getHeight(null), null);
