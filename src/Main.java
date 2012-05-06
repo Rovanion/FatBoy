@@ -12,7 +12,7 @@ public class Main {
 	 * 
 	 * @param args
 	 */
-	public static void Main(String[] args) {
+	public static void main(String[] args) {
 		GameCanvas newCanvas = new GameCanvas();
 		CreateFrame frame = new CreateFrame(newCanvas);
 	}

@@ -23,6 +23,8 @@ public class GameCanvas extends Canvas implements Runnable {
 	//private static Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 	private static Dimension dim = new Dimension(1280, 720);
 	private TitleScreen title;
+	private FlyingObject hamburger;
+	private Image testbild;
 
 	public static int height() {
 		return dim.height;
@@ -49,6 +51,9 @@ public class GameCanvas extends Canvas implements Runnable {
 
 		hero = new FatBoyHero(fatBoyImage);
 		disk = new Disk();
+		
+		hamburger = new FlyingObject(testbild, 50, 50, 50);
+		
 	}
 	
 	/**
@@ -74,6 +79,11 @@ public class GameCanvas extends Canvas implements Runnable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		try {
+			testbild = ImageIO.read(getClass().getResource("testbild.jpg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	// METHODS
@@ -87,7 +97,7 @@ public class GameCanvas extends Canvas implements Runnable {
 			render();
 
 			try {
-				Thread.sleep(5);
+				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 				running = false;
@@ -140,8 +150,9 @@ public class GameCanvas extends Canvas implements Runnable {
 		
 		disk.render(g);
 		hero.render(g);
+		hamburger.render(g);
 		}
-
+		
 		strategy.show();
 	}
 
@@ -161,6 +172,9 @@ public class GameCanvas extends Canvas implements Runnable {
 		{
 			title.update(controller);
 		}
+		hamburger.update();
+	;
+		
 	}
 
 	/**
