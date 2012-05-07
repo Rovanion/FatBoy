@@ -1,77 +1,33 @@
-import java.applet.Applet;
-import java.awt.Button;
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Panel;
-import java.awt.TextField;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
-import javax.swing.JTextField;
+public class HighScoreMenu {
+	private Image titleScreen;
+	private boolean showTitleScreen;
 
-
-public class HighScoreMenu extends Applet implements ActionListener
-{
-//	private Image TitleScreen;
-//	private boolean showMenu;
-	 
-	Panel pa = new Panel();
-	
-	Button done = new Button ("Done");
-	TextField inputfield = new TextField(20); 
-	
-	
-	
-//	public HighScoreMenu(Image img)
-//	{
-//		TitleScreen = img;
-//		
-//	}
-//	
-//	public boolean isShowMenu() {
-//		return showMenu;
-//	}
-	public void paint(Graphics g){
-		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, getWidth(), getHeight());
-	   	
+	public HighScoreMenu(Image img) {
+		titleScreen = img;
+		showTitleScreen = true; // Ändrad för att slippa titleScreen under
+								// testning. Ändra tbax!
 	}
-	
-//	public void init(){
-//		
-//		
-//		textfield.addActionListener(this);
-//		add(textfield);
-//		
-//		done.addActionListener(this);
-//		add( done);
-//		
-//		
-//		
-//	}
-	
 
+	public boolean isShowTitleScreen() {
+		return showTitleScreen;
+	}
 
-//	public void setShowMenu(boolean showMenu) {
-//		this.showMenu = showMenu;
-//	}
+	public void setShowTitleScreen(boolean showTitleScreen) {
+		this.showTitleScreen = showTitleScreen;
+	}
 
-	
-//	
-//	public void render(Graphics2D g, int width, int height)
-//	{
-//		g.drawImage(TitleScreen, 0, 0, width, height, null);
-//	}
-
-	public void actionPerformed(ActionEvent ae) {
-		if(ae.getSource() == done){
-			String name = inputfield,getText();
-			main.shutDown();
- 
+	public void update(Controller controller) {
+		if (controller.keys[KeyEvent.VK_ENTER]) {
+			showTitleScreen = false;
 		}
+	}
+
+	public void render(Graphics2D g, int width, int height) {
+		g.drawImage(titleScreen, 0, 0, width, height, null);
 	}
 
 }
