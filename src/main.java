@@ -1,4 +1,3 @@
-
 public class main {
 
 	/**
@@ -9,10 +8,22 @@ public class main {
 	public static void main(String[] args) {
 		GameCanvas newCanvas = new GameCanvas();
 		CreateFrame frame = new CreateFrame(newCanvas);
+
 	}
+	public static void endGame() {
+    
+	HighScoreMenu hsm = new HighScoreMenu();
 	
-	public static void endGame(){
-		
-		System.exit(0);
+	hsm.inputName();
+
 	}
+
+	public static void shutDown() {
+		HighscoreManager hm = new HighscoreManager();
+		// Här sätter vi in våra variabler för poäng och namn 
+		hm.addScore("Bart",240);
+		System.exit(0);
+
+	}
+
 }
