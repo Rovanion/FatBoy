@@ -1,19 +1,10 @@
 import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-
 import javax.imageio.ImageIO;
 
 public class GameCanvas extends Canvas implements Runnable {
@@ -22,22 +13,16 @@ public class GameCanvas extends Canvas implements Runnable {
 	private Image backgroundImage;
 	private Image fatBoyImage;
 	private Image titleScreen;
+	private Image carrotImage;
 	private Disk disk;
+	FlyingObject fo;
 	private FatBoyHero hero;
 	private Controller controller = new Controller();
-	//private static Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-	private static Dimension dim = new Dimension(1280, 720);
 	private TitleScreen title;
 	private PlayWave music;
 	private boolean musicPlaying, titleMusic, musicPaused;
 
-	public static int height() {
-		return dim.height;
-	}
 
-	public static int width() {
-		return dim.width;
-	}
 
 	// CONSTRUCTOR
 	public GameCanvas() {
@@ -46,63 +31,52 @@ public class GameCanvas extends Canvas implements Runnable {
 		// setBounds(0,0,screenSize.width, screenSize.height);
 
 		// Choosable dimension settings
-		setPreferredSize(dim);
+		setPreferredSize(Settings.dim);
 
 		addKeyListener(controller);
 
 		initializeImages();
-		music = new PlayWave( "src/GameTrack02.wav" );
+		music = new PlayWave("src/GameTrack02.wav");
 		title = new TitleScreen(titleScreen);
-		
-		musicPlaying = false;
-		musicPaused = false;
-		titleMusic = false;
-		
+
+		musicPlaying = Settings.musicPlaying;
+		musicPaused = Settings.musicPaused;
+		titleMusic = Settings.titleMusic;
+
 		hero = new FatBoyHero(fatBoyImage);
-		disk = new Disk(); 
+		disk = new Disk();
+		fo = new FlyingObject(carrotImage, 0.8, 50, 50);
 	}
 
 	/**
 	 * InitializeImages fetches the images at start up.
 	 */
-	private void initializeImages()
-	{
+	private void initializeImages() {
 		try {
 			backgroundImage = ImageIO.read(getClass().getResource(
 					"BackgroundFit.jpg"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		try {
+			titleScreen = ImageIO.read(getClass().getResource(
+					"FatBoyTitlePixelated.png"));
 			fatBoyImage = ImageIO.read(getClass().getResource("FatBoy.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		try {
-			titleScreen = ImageIO.read(getClass().getResource("FatBoyTitlePixelated.png"));
+			carrotImage = ImageIO.read(getClass().getResource("carrot.png"));
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	private void playMusic()
-	{
-		if(!titleMusic)
-		{
+
+	private void playMusic() {
+		if (!titleMusic) {
 			music.start();
 			titleMusic = true;
 		}
-		if(!title.isShowTitleScreen())
-		{
+		if (!title.isShowTitleScreen()) {
 			music.stop();
-			music = new PlayWave( "src/GameTrack04.wav" ); 
+			music = new PlayWave("src/GameTrack04.wav");
 			music.start();
 			musicPlaying = true;
 		}
-		
-		
+
 	}
 
 	// METHODS
@@ -112,36 +86,29 @@ public class GameCanvas extends Canvas implements Runnable {
 	 */
 	public void run() {
 		while (running) {
-			if(!musicPlaying)
-			{
+			if (!musicPlaying) {
 				playMusic();
 			}
 			update();
 			render();
 
 			try {
-				Thread.sleep(5);
+				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 				running = false;
 			}
-			
-			if(controller.keys[KeyEvent.VK_ESCAPE])
-				System.exit(0);
-			if(controller.keys[KeyEvent.VK_M])
-			{
-				if(musicPaused)
-				{
+
+			if (controller.keys[KeyEvent.VK_M]) {
+				if (musicPaused) {
 					music.unmute();
 					musicPaused = false;
-				}
-				else
-				{
+				} else {
 					music.mute();
 					musicPaused = true;
 				}
 			}
-				
+
 		}
 	}
 
@@ -160,53 +127,46 @@ public class GameCanvas extends Canvas implements Runnable {
 	/**
 	 * Render handles graphic rendering.
 	 */
-	private void render() 
-	{
+	private void render() {
 		BufferStrategy strategy = getBufferStrategy();
 		Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
-		
-		if(title.isShowTitleScreen())
-		{
+
+		if (title.isShowTitleScreen()) {
 			title.render(g, getWidth(), getHeight());
 		}
 
-		else
-		{
-		g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), null);
+		else {
+			g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), null);
 
-		//Sets the FatMeter according to FatBoy's FatPoints.
-		int fatMeterLevel=0;
-		if(hero.getFatLevel()>0.8 && hero.getFatLevel()<1.8)
-		{
-			fatMeterLevel=(int)(-0.3*height()*(hero.getFatLevel()-0.7));
-		}
-		g.setColor(Color.YELLOW);
-		g.fillRect((int) (0.05 * GameCanvas.width()),
-				(int) (0.98 * GameCanvas.height()), 40, fatMeterLevel); //-200 = max , 0 = min
-		
-		
-		disk.render(g);
-		hero.render(g);
-		}
+			// Sets the FatMeter according to FatBoy's FatPoints.
+			int fatMeterLevel = 0;
+			if (hero.getFatLevel() > 0.8 && hero.getFatLevel() < 1.8) {
+				fatMeterLevel = (int) (-0.3 * Settings.height() * (hero.getFatLevel() - 0.7));
+			}
+			g.setColor(Color.YELLOW);
+			g.fillRect((int) (0.05 * Settings.width()),
+					(int) (0.98 * Settings.height()), 40, fatMeterLevel);
 
+			disk.render(g);
+			hero.render(g);
+			fo.render(g);
+		}
 		strategy.show();
 	}
 
 	/**
 	 * Update
 	 */
-	private void update()
-	{
+	private void update() {
 		if (controller.keys[KeyEvent.VK_ESCAPE]) {
 			main.endGame();
 		}
-		if(!title.isShowTitleScreen())
-		{
+		if (!title.isShowTitleScreen()) {
 			hero.update(controller);
-		}
-		else
-		{
+			fo.update();
+		} else {
 			title.update(controller);
 		}
+		
 	}
 }

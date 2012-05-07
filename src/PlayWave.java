@@ -68,11 +68,11 @@ public class PlayWave extends Thread
             e.printStackTrace();
             return;
         } 
- 
+            fCont = (FloatControl) auline.getControl(FloatControl.Type.MASTER_GAIN); 
         if (auline.isControlSupported(FloatControl.Type.PAN)) { 
             FloatControl pan = (FloatControl) auline
                     .getControl(FloatControl.Type.PAN);
-            fCont = (FloatControl) auline.getControl(FloatControl.Type.MASTER_GAIN);
+
             if (curPosition == Position.RIGHT) 
                 pan.setValue(1.0f);
             else if (curPosition == Position.LEFT) 

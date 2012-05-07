@@ -11,7 +11,6 @@ public class FatBoyHero {
 	private double dy = 0;
 	private double fatLevel = 1.6;
 	private double counterLimit = 0.09;
-	private double groundLevel = 0.8;
 	private int jumpKeyPresses = 0;
 	private boolean jumping = false;
 	private Rope theRope = new Rope();
@@ -75,9 +74,9 @@ public class FatBoyHero {
 			dy += 0.0009;
 			
 			//If the player just hit the ground, reset speed and position.
-			if (y > groundLevel) {
+			if (y > Settings.groundLevel) {
 				dy = 0;
-				y = groundLevel;
+				y = Settings.groundLevel;
 				jumpKeyPresses = 0;
 				//Jumping burns fat.
 				fatLevel -= 0.05;	
@@ -114,14 +113,14 @@ public class FatBoyHero {
 
 
 	public void render(Graphics2D g) {
-		int absoluteX = (int) (x * GameCanvas.width());
-		int absoluteY = (int) (y * GameCanvas.height());
+		int absoluteX = (int) (x * Settings.width());
+		int absoluteY = (int) (y * Settings.height());
 		g.translate(absoluteX, absoluteY);
 
 		theRope.render(g, fatLevel);
 		
-		g.drawImage(image, 0, 0, (int) (GameCanvas.width() * 0.075 * fatLevel), 
-						(int) (GameCanvas.height() * 0.125), null);
+		g.drawImage(image, 0, 0, (int) (Settings.width() * 0.075 * fatLevel), 
+						(int) (Settings.height() * 0.125), null);
 
 		// Reset the coordinate system to the top left of the screen
 		g.translate(-absoluteX, -absoluteY);
