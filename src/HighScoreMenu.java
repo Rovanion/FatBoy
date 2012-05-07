@@ -1,33 +1,56 @@
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.event.KeyEvent;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
-public class HighScoreMenu {
-	private Image titleScreen;
-	private boolean showTitleScreen;
+public class HighScoreMenu
+{
+    public static void inputName()
+    {
+        //
+        // Skapa ett fönster.
+        //
+        JFrame fönster = new JFrame();
+        fönster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        fönster.setSize(300, 400);  // Bredd och höjd.
+        fönster.setLocation(100, 100);  // x och y.
+        fönster.setTitle("Fönster med komponenter");
 
-	public HighScoreMenu(Image img) {
-		titleScreen = img;
-		showTitleScreen = true; // ƒndrad fˆr att slippa titleScreen under
-								// testning. ƒndra tbax!
-	}
+        //
+        // Skapa knappen och textrutan.
+        //
+        JButton knapp = new JButton("Klicka mej");
+        JTextArea textruta = new JTextArea();
 
-	public boolean isShowTitleScreen() {
-		return showTitleScreen;
-	}
+        //
+        // Man lägger komponenterna i en
+        // "content pane" (innehållspanel).
+        //
+        Container innehåll = fönster.getContentPane();
 
-	public void setShowTitleScreen(boolean showTitleScreen) {
-		this.showTitleScreen = showTitleScreen;
-	}
+        //
+        // Här talar vi om att vi inte vill ha någon
+        // automatisk layouthantering av komponenterna
+        // i fönstret (null = ingenting/tomt).
+        //
+        innehåll.setLayout(null);
 
-	public void update(Controller controller) {
-		if (controller.keys[KeyEvent.VK_ENTER]) {
-			showTitleScreen = false;
-		}
-	}
+        //
+        // Nu lägger vi in komponenterna och positionerar dem.
+        // Koordinatsystemet börjar i övre vänstra hörnet,
+        // y växer nedåt. Enheten är bildpunkter.
+        //
+        innehåll.add(knapp);
+        innehåll.add(textruta);
 
-	public void render(Graphics2D g, int width, int height) {
-		g.drawImage(titleScreen, 0, 0, width, height, null);
-	}
-
+        //
+        // Argumenten till setBounds() är x, y, bredd, höjd.
+        //
+        textruta.setBounds(20, 20, 250, 250);
+        knapp.setBounds(20, 290, 250, 40);
+        
+        //
+        // Öppna fönstret.
+        //
+        fönster.show();
+    }
 }
