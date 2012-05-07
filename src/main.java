@@ -12,9 +12,9 @@ public class main {
 	}
 	public static void endGame() {
     
-	HighScoreMenu hsm = new HighScoreMenu(null);
+	HighScoreMenu hsm = new HighScoreMenu();
 	
-	//HighScoreMenu.;
+	hsm.inputName();
 
 	}
 
