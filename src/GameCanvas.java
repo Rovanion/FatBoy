@@ -5,6 +5,8 @@ import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.imageio.ImageIO;
 
 public class GameCanvas extends Canvas implements Runnable {
@@ -15,13 +17,13 @@ public class GameCanvas extends Canvas implements Runnable {
 	private Image titleScreen;
 	private Image carrotImage;
 	private Disk disk;
-	FlyingObject fo;
 	private FatBoyHero hero;
-	private Controller controller = new Controller();
 	private TitleScreen title;
 	private PlayWave music;
 	private boolean musicPlaying, titleMusic, musicPaused;
-
+	private Controller controller = new Controller();
+	private static ArrayList<FlyingObject> flyingObects= new ArrayList<FlyingObject>();
+	private int newFlyingObjectCounter = 0;
 
 
 	// CONSTRUCTOR
@@ -45,7 +47,6 @@ public class GameCanvas extends Canvas implements Runnable {
 
 		hero = new FatBoyHero(fatBoyImage);
 		disk = new Disk();
-		fo = new FlyingObject(carrotImage, 0.8, 50, 50);
 	}
 
 	/**
@@ -86,12 +87,18 @@ public class GameCanvas extends Canvas implements Runnable {
 	 */
 	public void run() {
 		while (running) {
-			if (!musicPlaying) {
+			newFlyingObjectCounter++;
+			if (!musicPlaying) 
 				playMusic();
+			
+			if(newFlyingObjectCounter == 100){
+				FlyingObject derp = new FlyingObject(fatBoyImage, 0.5, 50, 50);
+				flyingObects.add(derp);
+				newFlyingObjectCounter = 0;
 			}
 			update();
 			render();
-
+			
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {
@@ -131,6 +138,7 @@ public class GameCanvas extends Canvas implements Runnable {
 		BufferStrategy strategy = getBufferStrategy();
 		Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
 
+
 		if (title.isShowTitleScreen()) {
 			title.render(g, getWidth(), getHeight());
 		}
@@ -149,7 +157,9 @@ public class GameCanvas extends Canvas implements Runnable {
 
 			disk.render(g);
 			hero.render(g);
-			fo.render(g);
+			
+			for (FlyingObject fo : flyingObects)
+				fo.render(g);
 		}
 		strategy.show();
 	}
@@ -163,10 +173,16 @@ public class GameCanvas extends Canvas implements Runnable {
 		}
 		if (!title.isShowTitleScreen()) {
 			hero.update(controller);
+		for (FlyingObject fo : flyingObects)
 			fo.update();
+		
+
 		} else {
 			title.update(controller);
 		}
 		
+	}
+	public static void removeFlyingObject(FlyingObject fo){
+		flyingObects.remove(fo);
 	}
 }

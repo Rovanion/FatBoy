@@ -10,7 +10,7 @@ public class FlyingObject {
 	private int highscore; //The amouth of points rewarded for eating this.
 	private double dx; //Velocity in x
 	private double dy; //Velocity in y
-	private double x = 0; //Position in x
+	private double x = -0.1; //Position in x
 	private double y = 0.5; //Position in y
 	private double rotation = 0;
 	private double angularVelocity;
@@ -24,9 +24,9 @@ public class FlyingObject {
 		this.highscore = highscore;
 
 		// Generates random numbers between -0.05 and 0.05
-		dy = (0.01 - r.nextDouble()) * 0.01;
+		dy = (0 - r.nextDouble()) * 0.03;
 		// Random initial speed between 0 and 0.05
-		dx = r.nextDouble() * 0.01;
+		dx = (r.nextDouble() + 0.2) * 0.02;
 		angularVelocity = r.nextDouble() * 0.01;
 	}
 
@@ -61,9 +61,8 @@ public class FlyingObject {
 				angularVelocity = 0;
 		}
 		//Remove the object if it's time has come
-		if (timeUntilRemoved == 0)
-		
-			System.out.println("");
+		if (timeUntilRemoved == 0)		
+			GameCanvas.removeFlyingObject(this);
 	}
 
 	public void render(Graphics2D g) {
