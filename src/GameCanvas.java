@@ -33,7 +33,7 @@ public class GameCanvas extends Canvas implements Runnable {
 	private static List<FlyingObject> FOtoBeRemoved = new LinkedList<FlyingObject>();
 	private int timeSinceLastFlyingObject = 0;
 	private int flyingObjectsSent = 0;
-	private int timeBetweenFlyingObjects = 100;
+	private int timeBetweenFlyingObjects = 80;
 	private Random rand = new Random();
 	private int chanceOfGettingABurger = 500;
 
@@ -107,7 +107,6 @@ public class GameCanvas extends Canvas implements Runnable {
 				playMusic();
 
 			if (timeSinceLastFlyingObject == timeBetweenFlyingObjects) {
-				
 				FlyingObject derp;
 				if(rand.nextInt(1000) > chanceOfGettingABurger)
 					derp = new FlyingObject(friesImage, 0.2, 0.2, 50);
@@ -115,10 +114,11 @@ public class GameCanvas extends Canvas implements Runnable {
 					derp = new FlyingObject(appleImage, 0.8, -0.2, 80);
 				flyingObects.add(derp);
 
-				timeSinceLastFlyingObject = 0;
+				chanceOfGettingABurger--;
 				flyingObjectsSent++;
+				timeSinceLastFlyingObject = 0;
 				if (flyingObjectsSent % 5 == 0 && timeBetweenFlyingObjects > 20)
-					timeBetweenFlyingObjects -= 10;
+					timeBetweenFlyingObjects -= 5;
 			}
 			update();
 			render();
@@ -217,8 +217,7 @@ public class GameCanvas extends Canvas implements Runnable {
 			double x = hero.getX();
 			double y = hero.getY();
 			for (FlyingObject fo : flyingObects)
-				if(fo.checkForCollision(x, y))
-				{
+				if(fo.checkForCollision(x, y)){
 					hero.setFatLevel(fo.fatpoints());
 					hero.setFinalScore(fo.highscore());
 					removeFlyingObject(fo);

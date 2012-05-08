@@ -126,10 +126,8 @@ public class FatBoyHero {
 		} else if (x >= 1) {
 			if(!gameEnded)
 			{
-				HighScoreMenu hm =new HighScoreMenu();
-				hm.inputName();
 				gameEnded = true;
-				//main.endGame();
+				main.endGame();
 			}
 			
 		}
