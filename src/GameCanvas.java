@@ -26,8 +26,9 @@ public class GameCanvas extends Canvas implements Runnable {
 	private Controller controller = new Controller();
 	private static List<FlyingObject> flyingObects= new LinkedList<FlyingObject>();
 	private static List<FlyingObject> FOtoBeRemoved = new LinkedList<FlyingObject>();
-	private int newFlyingObjectCounter = 0;
-
+	private int timeSinceLastFlyingObject = 0;
+	private int flyingObjectsSent = 0;
+	private int timeBetweenFlyingObjects = 100;
 
 	// CONSTRUCTOR
 	public GameCanvas() {
@@ -90,14 +91,18 @@ public class GameCanvas extends Canvas implements Runnable {
 	 */
 	public void run() {
 		while (running) {
-			newFlyingObjectCounter++;
+			timeSinceLastFlyingObject++;
 			if (!musicPlaying) 
 				playMusic();
 			
-			if(newFlyingObjectCounter == 100){
+			if(timeSinceLastFlyingObject == timeBetweenFlyingObjects){
 				FlyingObject derp = new FlyingObject(fatBoyImage, 0.5, 50, 50);
 				flyingObects.add(derp);
-				newFlyingObjectCounter = 0;
+				
+				timeSinceLastFlyingObject = 0;
+				flyingObjectsSent++;
+				if(flyingObjectsSent % 2 == 0 && timeBetweenFlyingObjects > 30)
+					timeBetweenFlyingObjects -= 10;
 			}
 			update();
 			render();
