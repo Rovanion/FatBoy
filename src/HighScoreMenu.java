@@ -7,13 +7,13 @@ public class HighScoreMenu
     public static void inputName()
     {
         //
-        // Skapa ett fönster.
+        // Skapa ett f√∂nster.
         //
-        JFrame fönster = new JFrame();
-        fönster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        fönster.setSize(300, 400);  // Bredd och höjd.
-        fönster.setLocation(100, 100);  // x och y.
-        fönster.setTitle("Fönster med komponenter");
+        JFrame f√∂nster = new JFrame();
+        f√∂nster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f√∂nster.setSize(300, 400);  // Bredd och h√∂jd.
+        f√∂nster.setLocation(100, 100);  // x och y.
+        f√∂nster.setTitle("F√∂nster med komponenter");
 
         //
         // Skapa knappen och textrutan.
@@ -22,35 +22,35 @@ public class HighScoreMenu
         JTextArea textruta = new JTextArea();
 
         //
-        // Man lägger komponenterna i en
-        // "content pane" (innehållspanel).
+        // Man l√∂gger komponenterna i en
+        // "content pane" (inneh√∂llspanel).
         //
-        Container innehåll = fönster.getContentPane();
+        Container inneh√∂ll = f√∂nster.getContentPane();
 
         //
-        // Här talar vi om att vi inte vill ha någon
+        // H√∂r talar vi om att vi inte vill ha n√∂gon
         // automatisk layouthantering av komponenterna
-        // i fönstret (null = ingenting/tomt).
+        // i f√∂nstret (null = ingenting/tomt).
         //
-        innehåll.setLayout(null);
+        inneh√∂ll.setLayout(null);
 
         //
-        // Nu lägger vi in komponenterna och positionerar dem.
-        // Koordinatsystemet börjar i övre vänstra hörnet,
-        // y växer nedåt. Enheten är bildpunkter.
+        // Nu l√∂gger vi in komponenterna och positionerar dem.
+        // Koordinatsystemet b√∂rjar i √∂vre v√∂nstra h√∂rnet,
+        // y v√∂xer ned√∂t. Enheten √∂r bildpunkter.
         //
-        innehåll.add(knapp);
-        innehåll.add(textruta);
+        inneh√∂ll.add(knapp);
+        inneh√∂ll.add(textruta);
 
         //
-        // Argumenten till setBounds() är x, y, bredd, höjd.
+        // Argumenten till setBounds() √∂r x, y, bredd, h√∂jd.
         //
         textruta.setBounds(20, 20, 250, 250);
         knapp.setBounds(20, 290, 250, 40);
         
         //
-        // Öppna fönstret.
+        // √∂ppna f√∂nstret.
         //
-        fönster.show();
+        f√∂nster.show();
     }
 }

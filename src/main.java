@@ -11,16 +11,17 @@ public class main {
 
 	}
 	public static void endGame() {
-    
-	HighScoreMenu hsm = new HighScoreMenu();
+		if(Settings.showHiScore){
+			HighScoreMenu hsm = new HighScoreMenu();
 	
-	hsm.inputName();
-
+			hsm.inputName();
+		}
+		System.exit(0);
 	}
 
 	public static void shutDown() {
 		HighscoreManager hm = new HighscoreManager();
-		// Här sätter vi in våra variabler för poäng och namn 
+		// H√∂r s√∂tter vi in v√∂ra variabler f√∂r po√∂ng och namn 
 		hm.addScore("Bart",240);
 		System.exit(0);
 

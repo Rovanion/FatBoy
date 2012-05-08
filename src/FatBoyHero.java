@@ -24,6 +24,12 @@ public class FatBoyHero {
 	public double getFatLevel(){
 		return fatLevel;
 	}
+	public double getX(){
+		return x;
+	}
+	public double getY(){
+		return y;
+	}
 	
 	/**
 	 * Update keeps track on FatBoy's movement corresponding to the controller.

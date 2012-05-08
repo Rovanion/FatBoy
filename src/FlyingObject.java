@@ -10,7 +10,7 @@ public class FlyingObject {
 	private int highscore; //The amouth of points rewarded for eating this.
 	private double dx; //Velocity in x
 	private double dy; //Velocity in y
-	private double x = 0; //Position in x
+	private double x = -0.1; //Position in x
 	private double y = 0.5; //Position in y
 	private double rotation = 0;
 	private double angularVelocity;
@@ -24,10 +24,10 @@ public class FlyingObject {
 		this.highscore = highscore;
 
 		// Generates random numbers between -0.05 and 0.05
-		dy = (0.01 - r.nextDouble()) * 0.01;
+		dy = (0 - r.nextDouble()) * 0.03;
 		// Random initial speed between 0 and 0.05
-		dx = r.nextDouble() * 0.01;
-		angularVelocity = r.nextDouble() * 0.01;
+		dx = (r.nextDouble() + 0.2) * 0.02;
+		angularVelocity = (0.5 -r.nextDouble()) * 0.07;
 	}
 
 	public int fatpoints() {
@@ -61,9 +61,8 @@ public class FlyingObject {
 				angularVelocity = 0;
 		}
 		//Remove the object if it's time has come
-		if (timeUntilRemoved == 0)
-		
-			System.out.println("");
+		if (timeUntilRemoved == 0)		
+			GameCanvas.removeFlyingObject(this);
 	}
 
 	public void render(Graphics2D g) {
@@ -76,5 +75,15 @@ public class FlyingObject {
 		g.translate(image.getWidth(null)/2, image.getHeight(null)/2);
 		g.rotate(-rotation);
 		g.translate(-Settings.width() * x, -Settings.height() * y);
+	}
+	/*
+	 * Returns true if the given coordinates collide with the objecs hitbox.
+	 */
+	public boolean checkForCollision(double x, double y){
+		if(x < (this.x + 0.1) && x > (this.x - 0.1))
+			if(y < (this.y + 0.1) && y > (this.y -0.1))
+				return true;
+		
+		return false;
 	}
 }
