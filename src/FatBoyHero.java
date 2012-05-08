@@ -65,7 +65,7 @@ public class FatBoyHero {
 		dx = dx - dx * 0.04;
 
 		// Force = k * Distance From Equilibrium * Mass
-		dx += 0.00016 * (1.75 - x) * (1 / (fatLevel)); // Elastic rope:
+		dx += 0.0003 * (1.75 - x) * (1 / (fatLevel)); // Elastic rope:
 											  
 
 		if (controller.keys[KeyEvent.VK_RIGHT] || controller.keys[KeyEvent.VK_D]){
@@ -74,7 +74,7 @@ public class FatBoyHero {
 		if (controller.keys[KeyEvent.VK_LEFT] || controller.keys[KeyEvent.VK_A]){
 			dx -= 0.0004;
 			//Moving against the rope's force burns fat
-			fatLevel -= 0.003;
+			fatLevel -= 0.001*(1.75 - x);
 		}
 
 		x += dx;
