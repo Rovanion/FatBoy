@@ -104,7 +104,7 @@ public class GameCanvas extends Canvas implements Runnable {
 				playMusic();
 
 			if (timeSinceLastFlyingObject == timeBetweenFlyingObjects) {
-				FlyingObject derp = new FlyingObject(hamburgerImage, 0.5, 50, 50);
+				FlyingObject derp = new FlyingObject(friesImage, 0.8, 0.2, 50);
 				flyingObects.add(derp);
 
 				timeSinceLastFlyingObject = 0;
@@ -166,9 +166,18 @@ public class GameCanvas extends Canvas implements Runnable {
 
 			// Sets the FatMeter according to FatBoy's FatPoints.
 			int fatMeterLevel = 0;
-			if (hero.getFatLevel() > 0.8 && hero.getFatLevel() < 1.8) {
+			if (hero.getFatLevel() < 1.8) 
+			{
 				fatMeterLevel = (int) (-0.3 * Settings.height() * (hero
 						.getFatLevel() - 0.7));
+			}
+			else if(hero.getFatLevel() < 0.6)
+			{
+				fatMeterLevel = 0;
+			}
+			else
+			{
+				fatMeterLevel = (int) (-0.3 * Settings.height() * 1.3);
 			}
 			g.setColor(Color.YELLOW);
 			g.fillRect((int) (0.05 * Settings.width()),
@@ -201,7 +210,11 @@ public class GameCanvas extends Canvas implements Runnable {
 			double y = hero.getY();
 			for (FlyingObject fo : flyingObects)
 				if(fo.checkForCollision(x, y))
+				{
+					hero.setFatLevel(fo.fatpoints());
+					hero.setFinalScore(fo.highscore());
 					removeFlyingObject(fo);
+				}
 		} else {
 			title.update(controller);
 		}
