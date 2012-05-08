@@ -20,7 +20,7 @@ public class main {
 
 	public static void shutDown() {
 		HighscoreManager hm = new HighscoreManager();
-		// Här sätter vi in våra variabler för poäng och namn 
+		// H√∂r s√∂tter vi in v√∂ra variabler f√∂r po√∂ng och namn 
 		hm.addScore("Bart",240);
 		System.exit(0);
 

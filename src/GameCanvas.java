@@ -6,6 +6,8 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -22,7 +24,8 @@ public class GameCanvas extends Canvas implements Runnable {
 	private PlayWave music;
 	private boolean musicPlaying, titleMusic, musicPaused;
 	private Controller controller = new Controller();
-	private static ArrayList<FlyingObject> flyingObects= new ArrayList<FlyingObject>();
+	private static List<FlyingObject> flyingObects= new LinkedList<FlyingObject>();
+	private static List<FlyingObject> FOtoBeRemoved = new LinkedList<FlyingObject>();
 	private int newFlyingObjectCounter = 0;
 
 
@@ -99,6 +102,9 @@ public class GameCanvas extends Canvas implements Runnable {
 			update();
 			render();
 			
+			for (FlyingObject fo : FOtoBeRemoved)
+				flyingObects.remove(fo);
+				
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {
@@ -183,6 +189,7 @@ public class GameCanvas extends Canvas implements Runnable {
 		
 	}
 	public static void removeFlyingObject(FlyingObject fo){
-		flyingObects.remove(fo);
+		
+		FOtoBeRemoved.add(fo);
 	}
 }
