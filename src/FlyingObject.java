@@ -6,7 +6,7 @@ public class FlyingObject {
 
 	private Image image;
 	private double elasticity; //Should range between 0 and 1.
-	private int fatpoints; //The amount of fatpoints rewarded for eating this.
+	private double fatpoints; //The amount of fatpoints rewarded for eating this.
 	private int highscore; //The amouth of points rewarded for eating this.
 	private double dx; //Velocity in x
 	private double dy; //Velocity in y
@@ -17,7 +17,7 @@ public class FlyingObject {
 	private int timeUntilRemoved = 50;
 	private Random r = new Random(); //Random generator
 	
-	public FlyingObject(Image image, double elasticity, int fatpoints, int highscore) {
+	public FlyingObject(Image image, double elasticity, double fatpoints, int highscore) {
 		this.image = image;
 		this.elasticity = elasticity;
 		this.fatpoints = fatpoints;
@@ -30,7 +30,7 @@ public class FlyingObject {
 		angularVelocity = (0.5 -r.nextDouble()) * 0.07;
 	}
 
-	public int fatpoints() {
+	public double fatpoints() {
 		return fatpoints;
 	}
 	public int highscore() {
