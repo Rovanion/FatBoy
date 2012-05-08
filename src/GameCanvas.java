@@ -201,6 +201,7 @@ public class GameCanvas extends Canvas implements Runnable {
 			g.fillRect((int) (0.05 * Settings.width()),
 					(int) (0.98 * Settings.height()), 40, fatMeterLevel);
 
+			//Render objects
 			disk.render(g);
 			hero.render(g);
 
