@@ -37,6 +37,9 @@ public class PlayWave extends Thread
     //METHODS
     public void run() { 
  
+    	while(true)
+    	{
+    	
         File soundFile = new File(filename);
         if (!soundFile.exists()) { 
             System.err.println("Wave file not found: " + filename);
@@ -96,6 +99,7 @@ public class PlayWave extends Thread
             auline.drain();
             auline.close();
         } 
+    	}
  
     }
     
