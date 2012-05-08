@@ -13,10 +13,18 @@ public class Score implements Serializable{
 		return name;
 	}
 	
-	public Score(String name, int score){
+	public Score(){
 		this.score =score;
 		this.name = name;
 		
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }
