@@ -14,10 +14,12 @@ public class FatBoyHero {
 	private int jumpKeyPresses = 0;
 	private boolean jumping = false;
 	private Rope theRope = new Rope();
+	private boolean gameEnded;
 
 	// CONSTRUCTOR
 	public FatBoyHero(Image image) {
 		this.image = image;
+		gameEnded=false;
 	}
 	
 	//METHODS
@@ -100,7 +102,14 @@ public class FatBoyHero {
 			x = counterLimit;
 			dx = 0;
 		} else if (x >= 1) {
-			main.endGame();
+			if(!gameEnded)
+			{
+				HighScoreMenu hm =new HighScoreMenu();
+				hm.inputName();
+				gameEnded = true;
+				//main.endGame();
+			}
+			
 		}
 	}
 
