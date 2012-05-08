@@ -127,7 +127,7 @@ public class FatBoyHero {
 			if(!gameEnded)
 			{
 				HighScoreMenu hm =new HighScoreMenu();
-				hm.inputName(123);
+				hm.inputName();
 				gameEnded = true;
 				//main.endGame();
 			}
@@ -141,10 +141,10 @@ public class FatBoyHero {
 	private void jump() {
 		jumping = true;
 		jumpKeyPresses++;
-		if (jumpKeyPresses < 12) {
+		if (jumpKeyPresses < 15) {
 			if (jumpKeyPresses == 1)
-				dy = -0.02 * (1 / (0.3 + fatLevel));
-			dy -= 0.001 * (1 / (0.3 + fatLevel));
+				dy = -0.01 * (1.85 - fatLevel);
+			dy -= 0.001 * (1.85 - fatLevel);
 		}
 	}
 
