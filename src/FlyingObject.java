@@ -27,7 +27,7 @@ public class FlyingObject {
 		dy = (0 - r.nextDouble()) * 0.03;
 		// Random initial speed between 0 and 0.05
 		dx = (r.nextDouble() + 0.2) * 0.02;
-		angularVelocity = r.nextDouble() * 0.01;
+		angularVelocity = (0.5 -r.nextDouble()) * 0.07;
 	}
 
 	public int fatpoints() {
