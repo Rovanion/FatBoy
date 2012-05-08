@@ -15,10 +15,12 @@ public class FatBoyHero {
 	private boolean jumping = false;
 	private Rope theRope = new Rope();
 	private boolean gameEnded;
+	private Score finalScore;
 
 	// CONSTRUCTOR
 	public FatBoyHero(Image image) {
 		this.image = image;
+		finalScore = new Score();
 		gameEnded=false;
 	}
 	
@@ -26,6 +28,20 @@ public class FatBoyHero {
 	public double getFatLevel(){
 		return fatLevel;
 	}
+	public Score getFinalScore() {
+		return finalScore;
+	}
+
+	public void setFinalScore(int newScore) {
+		int oldScore=finalScore.getScore();
+		newScore=oldScore+newScore;
+		finalScore.setScore(newScore);
+	}
+
+	public void setFatLevel(double fatLevel) {
+		this.fatLevel = fatLevel;
+	}
+
 	public double getX(){
 		return x;
 	}
@@ -105,7 +121,7 @@ public class FatBoyHero {
 			if(!gameEnded)
 			{
 				HighScoreMenu hm =new HighScoreMenu();
-				hm.inputName();
+				hm.inputName(123);
 				gameEnded = true;
 				//main.endGame();
 			}
