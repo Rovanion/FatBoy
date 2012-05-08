@@ -168,8 +168,8 @@ public class GameCanvas extends Canvas implements Runnable {
 			int fatMeterLevel = 0;
 			if (hero.getFatLevel() < 1.8) 
 			{
-				fatMeterLevel = (int) (-0.3 * Settings.height() * (hero
-						.getFatLevel() - 0.7));
+				fatMeterLevel = (int) (-0.15 * Settings.height() * (hero
+						.getFatLevel()));
 			}
 			else if(hero.getFatLevel() < 0.6)
 			{
