@@ -6,6 +6,7 @@ public class Settings {
 	public static final boolean musicPlaying = false;
 	public static final boolean musicPaused = false;
 	public static final boolean titleMusic = false;
+	public static final boolean showHiScore = false;
 	
 	public static Dimension dim = new Dimension(1280, 720);
 	public static int height() {
