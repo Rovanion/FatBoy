@@ -18,6 +18,10 @@ public class GameCanvas extends Canvas implements Runnable {
 	private Image fatBoyImage;
 	private Image titleScreen;
 	private Image carrotImage;
+	private Image hamburgerImage;
+	private Image iceCreamImage;
+	private Image appleImage;
+	private Image friesImage;
 	private Disk disk;
 	private FatBoyHero hero;
 	private TitleScreen title;
@@ -64,6 +68,10 @@ public class GameCanvas extends Canvas implements Runnable {
 					"FatBoyTitlePixelated.png"));
 			fatBoyImage = ImageIO.read(getClass().getResource("FatBoy.png"));
 			carrotImage = ImageIO.read(getClass().getResource("carrot.png"));
+			hamburgerImage = ImageIO.read(getClass().getResource("Hamburger.png"));
+			appleImage = ImageIO.read(getClass().getResource("Apple.png"));
+			friesImage = ImageIO.read(getClass().getResource("pommes.png"));
+			iceCreamImage = ImageIO.read(getClass().getResource("IceCream.png"));
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -96,7 +104,7 @@ public class GameCanvas extends Canvas implements Runnable {
 				playMusic();
 
 			if (timeSinceLastFlyingObject == timeBetweenFlyingObjects) {
-				FlyingObject derp = new FlyingObject(fatBoyImage, 0.5, 50, 50);
+				FlyingObject derp = new FlyingObject(hamburgerImage, 0.5, 50, 50);
 				flyingObects.add(derp);
 
 				timeSinceLastFlyingObject = 0;
