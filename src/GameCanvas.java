@@ -112,17 +112,17 @@ public class GameCanvas extends Canvas implements Runnable {
 				FlyingObject derp = null;
 				if (rand.nextInt(1000) < chanceOfGettingABurger) {
 					switch (rand.nextInt(3)) {
-					case 0:	derp = new FlyingObject(friesImage, 0.3, 0.2, 50);
+					case 0:	derp = new FlyingObject(friesImage, 0.3, 0.25, 50);
 							break;
-					case 1: derp = new FlyingObject(hamburgerImage, 0.6, 0.2, 50);
+					case 1: derp = new FlyingObject(hamburgerImage, 0.6, 0.25, 50);
 							break;
-					case 2: derp = new FlyingObject(iceCreamImage, 0.1, 0.2, 50);
+					case 2: derp = new FlyingObject(iceCreamImage, 0.1, 0.1, 50);
 					}
 				} else{
 					switch (rand.nextInt(2)){
 					case 0: derp = new FlyingObject(appleImage, 0.9, -0.1, 80);
 							break;
-					case 1: derp = new FlyingObject(carrotImage, 0.75, -0.1, 80);
+					case 1: derp = new FlyingObject(carrotImage, 0.75, -0.2, 80);
 							break;
 					}
 				}
