@@ -14,7 +14,7 @@ public class FlyingObject {
 	private double y = 0.5; //Position in y
 	private double rotation = 0;
 	private double angularVelocity;
-	private int timeUntilRemoved = 50;
+	private int timeUntilRemoved = 100;
 	private Random r = new Random(); //Random generator
 	
 	public FlyingObject(Image image, double elasticity, double fatpoints, int highscore) {
@@ -48,8 +48,8 @@ public class FlyingObject {
 		if(y > Settings.groundLevel){
 			dy = -dy * elasticity;
 			y = Settings.groundLevel;
-			dx = dx * 0.9;
-			angularVelocity += dx;
+			angularVelocity += dx * 3;
+			dx = dx * elasticity;
 		}
 		
 		//If the object stops moving
@@ -80,8 +80,8 @@ public class FlyingObject {
 	 * Returns true if the given coordinates collide with the objecs hitbox.
 	 */
 	public boolean checkForCollision(double x, double y){
-		if(x < (this.x + 0.1) && x > (this.x - 0.1))
-			if(y < (this.y + 0.1) && y > (this.y -0.1))
+		if(x < (this.x + 0.05) && x > (this.x - 0.05))
+			if(y < (this.y + 0.05) && y > (this.y -0.05))
 				return true;
 		
 		return false;

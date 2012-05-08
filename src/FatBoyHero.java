@@ -6,7 +6,7 @@ public class FatBoyHero {
 	// FIELDS
 	private Image image;
 	private double x = 0.3;
-	private double y = 0.8;
+	private double y = Settings.groundLevel;
 	private double dx = 0;
 	private double dy = 0;
 	private double fatLevel = 1.6;
@@ -139,10 +139,10 @@ public class FatBoyHero {
 	private void jump() {
 		jumping = true;
 		jumpKeyPresses++;
-		if (jumpKeyPresses < 15) {
+		if (jumpKeyPresses < 13) {
 			if (jumpKeyPresses == 1)
-				dy = -0.01 * (1.85 - fatLevel);
-			dy -= 0.001 * (1.85 - fatLevel);
+				dy = -0.01 * (2.2 - fatLevel);
+			dy -= 0.001 * (2.2 - fatLevel);
 		}
 	}
 
@@ -151,6 +151,8 @@ public class FatBoyHero {
 		int absoluteX = (int) (x * Settings.width());
 		int absoluteY = (int) (y * Settings.height());
 		g.translate(absoluteX, absoluteY);
+		g.translate(-(int) (Settings.width() * 0.075 * fatLevel)/2,
+				-(int) (Settings.height() * 0.125)/2);
 
 		theRope.render(g, fatLevel);
 		
@@ -158,6 +160,8 @@ public class FatBoyHero {
 						(int) (Settings.height() * 0.125), null);
 
 		// Reset the coordinate system to the top left of the screen
+		g.translate((int) (Settings.width() * 0.075 * fatLevel)/2,
+				(int) (Settings.height() * 0.125)/2);
 		g.translate(-absoluteX, -absoluteY);
 	}
 }
