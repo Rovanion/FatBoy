@@ -9,11 +9,11 @@ public class HighScoreMenu
         //
         // Skapa ett fönster.
         //
-        JFrame fönster = new JFrame();
-        fönster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        fönster.setSize(300, 400);  // Bredd och höjd.
-        fönster.setLocation(100, 100);  // x och y.
-        fönster.setTitle("Fönster med komponenter");
+        JFrame window= new JFrame();
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setSize(300, 400);  // Bredd och höjd.
+        window.setLocation(100, 100);  // x och y.
+        window.setTitle("Fönster med komponenter");
 
         //
         // Skapa knappen och textrutan.
@@ -25,22 +25,22 @@ public class HighScoreMenu
         // Man lögger komponenterna i en
         // "content pane" (innehöllspanel).
         //
-        Container innehöll = fönster.getContentPane();
+        Container content = window.getContentPane();
 
         //
         // Hör talar vi om att vi inte vill ha nögon
         // automatisk layouthantering av komponenterna
         // i fönstret (null = ingenting/tomt).
         //
-        innehöll.setLayout(null);
+        content.setLayout(null);
 
         //
         // Nu lögger vi in komponenterna och positionerar dem.
         // Koordinatsystemet börjar i övre vönstra hörnet,
         // y vöxer nedöt. Enheten ör bildpunkter.
         //
-        innehöll.add(knapp);
-        innehöll.add(textruta);
+        content.add(knapp);
+        content.add(textruta);
 
         //
         // Argumenten till setBounds() ör x, y, bredd, höjd.
@@ -51,6 +51,6 @@ public class HighScoreMenu
         //
         // öppna fönstret.
         //
-        fönster.show();
+        window.show();
     }
 }
