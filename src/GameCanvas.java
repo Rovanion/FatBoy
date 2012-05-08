@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 
@@ -33,6 +34,8 @@ public class GameCanvas extends Canvas implements Runnable {
 	private int timeSinceLastFlyingObject = 0;
 	private int flyingObjectsSent = 0;
 	private int timeBetweenFlyingObjects = 100;
+	private Random rand = new Random();
+	private int chanceOfGettingABurger = 500;
 
 	// CONSTRUCTOR
 	public GameCanvas() {
@@ -77,7 +80,7 @@ public class GameCanvas extends Canvas implements Runnable {
 			e.printStackTrace();
 		}
 	}
-
+	
 	private void playMusic() {
 		if (!titleMusic) {
 			music.start();
@@ -104,12 +107,17 @@ public class GameCanvas extends Canvas implements Runnable {
 				playMusic();
 
 			if (timeSinceLastFlyingObject == timeBetweenFlyingObjects) {
-				FlyingObject derp = new FlyingObject(friesImage, 0.8, 0.2, 50);
+				
+				FlyingObject derp;
+				if(rand.nextInt(1000) > chanceOfGettingABurger)
+					derp = new FlyingObject(friesImage, 0.2, 0.2, 50);
+				else
+					derp = new FlyingObject(appleImage, 0.8, -0.2, 80);
 				flyingObects.add(derp);
 
 				timeSinceLastFlyingObject = 0;
 				flyingObjectsSent++;
-				if (flyingObjectsSent % 2 == 0 && timeBetweenFlyingObjects > 30)
+				if (flyingObjectsSent % 5 == 0 && timeBetweenFlyingObjects > 20)
 					timeBetweenFlyingObjects -= 10;
 			}
 			update();
