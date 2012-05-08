@@ -10,6 +10,7 @@ public class FatBoyHero {
 	private double dx = 0;
 	private double dy = 0;
 	private double fatLevel = 1.6;
+	private double maxFat = 2.0;
 	private double counterLimit = 0.09;
 	private int jumpKeyPresses = 0;
 	private boolean jumping = false;
@@ -38,8 +39,13 @@ public class FatBoyHero {
 		finalScore.setScore(newScore);
 	}
 
-	public void setFatLevel(double fatLevel) {
-		this.fatLevel = fatLevel;
+	public void setFatLevel(double newFat) {
+		double oldFat = fatLevel;
+		if(fatLevel < maxFat)
+		{
+			oldFat= oldFat+newFat;
+		}
+		this.fatLevel = oldFat;
 	}
 
 	public double getX(){
