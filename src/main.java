@@ -11,11 +11,11 @@ public class main {
 
 	}
 	public static void endGame() {
-		if(Settings.showHiScore){
+		/*if(Settings.showHiScore){
 			HighScoreMenu hsm = new HighScoreMenu();
 	
 			hsm.inputName();
-		}
+		}*/
 		System.exit(0);
 	}
 
