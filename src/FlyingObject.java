@@ -76,4 +76,14 @@ public class FlyingObject {
 		g.rotate(-rotation);
 		g.translate(-Settings.width() * x, -Settings.height() * y);
 	}
+	/*
+	 * Returns true if the given coordinates collide with the objecs hitbox.
+	 */
+	public boolean checkForCollision(double x, double y){
+		if(x < (this.x + 0.1) && x > (this.x - 0.1))
+			if(y < (this.y + 0.1) && y > (this.y -0.1))
+				return true;
+		
+		return false;
+	}
 }
