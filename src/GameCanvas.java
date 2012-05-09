@@ -84,9 +84,9 @@ public class GameCanvas extends Canvas implements Runnable {
 	}
 
 	private void playMusic() {
-		if (!titleMusic) {
+		if (titleMusic) {
 			music.start();
-			titleMusic = true;
+			titleMusic = false;
 		}
 		if (!title.isShowTitleScreen()) {
 			music.stop();
@@ -133,10 +133,11 @@ public class GameCanvas extends Canvas implements Runnable {
 				flyingObjectsSent++;
 				flyingObects.add(derp);
 			}
+			
 			update();
 			render();
 
-			if (!musicPlaying)
+			if (musicPlaying)
 				playMusic();
 			
 			for (FlyingObject fo : FOtoBeRemoved)

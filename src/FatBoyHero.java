@@ -122,7 +122,7 @@ public class FatBoyHero {
 		if (x < counterLimit) {
 			x = counterLimit;
 			dx = 0;
-		} else if (x >= 1.01) {
+		} else if (x >= 1.06) {
 			if (!gameEnded) {
 				gameEnded = true;
 				main.endGame(finalScore);
