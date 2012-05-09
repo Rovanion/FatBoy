@@ -109,8 +109,8 @@ public class GameCanvas extends Canvas implements Runnable {
 
 			if (time % 150 == 0 && timeBetweenFlyingObjects > 15)
 					timeBetweenFlyingObjects -= 2;
-			
-			if (timeSinceLastFlyingObject == timeBetweenFlyingObjects) {
+					
+			if (timeSinceLastFlyingObject >= timeBetweenFlyingObjects) {
 				FlyingObject derp = null;
 				if (rand.nextInt(1000) < chanceOfGettingABurger) {
 					switch (rand.nextInt(3)) {
@@ -128,12 +128,10 @@ public class GameCanvas extends Canvas implements Runnable {
 							break;
 					}
 				}
-					
-				flyingObects.add(derp);
-
+				timeSinceLastFlyingObject = 0;		
 				chanceOfGettingABurger--;
 				flyingObjectsSent++;
-				timeSinceLastFlyingObject = 0;
+				flyingObects.add(derp);
 			}
 			update();
 			render();
@@ -160,7 +158,8 @@ public class GameCanvas extends Canvas implements Runnable {
 					musicPaused = true;
 				}
 			}
-
+			if(Settings.liveDebugging)
+				System.out.println(timeSinceLastFlyingObject + " " + timeBetweenFlyingObjects + " " + chanceOfGettingABurger);
 		}
 	}
 
