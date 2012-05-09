@@ -6,12 +6,12 @@ public class FatBoyHero {
 	// FIELDS
 	private Image image;
 	private double x = 0.3;
-	private double y = 0.8;
+	private double y = Settings.groundLevel;
 	private double dx = 0;
 	private double dy = 0;
 	private double fatLevel = 1.6;
 	private double maxFat = 2.0;
-	private double counterLimit = 0.09;
+	private double counterLimit = 0.1;
 	private int jumpKeyPresses = 0;
 	private boolean jumping = false;
 	private Rope theRope = new Rope();
@@ -22,39 +22,40 @@ public class FatBoyHero {
 	public FatBoyHero(Image image) {
 		this.image = image;
 		finalScore = new Score();
-		gameEnded=false;
+		gameEnded = false;
 	}
-	
-	//METHODS
-	public double getFatLevel(){
+
+	// METHODS
+	public double getFatLevel() {
 		return fatLevel;
 	}
+
 	public Score getFinalScore() {
 		return finalScore;
 	}
 
 	public void setFinalScore(int newScore) {
-		int oldScore=finalScore.getScore();
-		newScore=oldScore+newScore;
+		int oldScore = finalScore.getScore();
+		newScore = oldScore + newScore;
 		finalScore.setScore(newScore);
 	}
 
 	public void setFatLevel(double newFat) {
 		double oldFat = fatLevel;
-		if(fatLevel < maxFat)
-		{
-			oldFat= oldFat+newFat;
+		if (fatLevel < maxFat) {
+			oldFat = oldFat + newFat;
 		}
 		this.fatLevel = oldFat;
 	}
 
-	public double getX(){
+	public double getX() {
 		return x;
 	}
-	public double getY(){
+
+	public double getY() {
 		return y;
 	}
-	
+
 	/**
 	 * Update keeps track on FatBoy's movement corresponding to the controller.
 	 * 
@@ -66,50 +67,48 @@ public class FatBoyHero {
 
 		// Force = k * Distance From Equilibrium * Mass
 		dx += 0.0003 * (1.75 - x) * (1 / (fatLevel)); // Elastic rope:
-											  
 
-		if (controller.keys[KeyEvent.VK_RIGHT] || controller.keys[KeyEvent.VK_D]){
-			dx += 0.0004;
+		if (controller.keys[KeyEvent.VK_RIGHT]
+				|| controller.keys[KeyEvent.VK_D]) {
+			dx += 0.0008;
 		}
-		if (controller.keys[KeyEvent.VK_LEFT] || controller.keys[KeyEvent.VK_A]){
-			dx -= 0.0004;
-			//Moving against the rope's force burns fat
-			fatLevel -= 0.001*(1.75 - x);
+		if (controller.keys[KeyEvent.VK_LEFT] || controller.keys[KeyEvent.VK_A]) {
+			dx -= 0.0008;
+			// Moving against the rope's force burns fat
+			fatLevel -= 0.001 * (1.75 - x);
 		}
 
 		x += dx;
 
 		limitScreenMovement();
-		
 
 		// Movement Y-axis
 		if (controller.keys[KeyEvent.VK_UP] || controller.keys[KeyEvent.VK_W]) {
 			jump();
 		}
 		/*
-		 * This prevents double-jumping.
-		 * By setting the number of jump-key presses over the allowed value 
-		 * for adding more speed, no more force will be added if the key is 
-		 * pressed again.
+		 * This prevents double-jumping. By setting the number of jump-key
+		 * presses over the allowed value for adding more speed, no more force
+		 * will be added if the key is pressed again.
 		 */
-		else if(jumping){
+		else if (jumping) {
 			jumpKeyPresses = 100;
 			jumping = false;
 		}
 
 		y += dy;
-		
-		//If the player is jumping, add the gravitational acceleration to dy.
+
+		// If the player is jumping, add the gravitational acceleration to dy.
 		if (jumpKeyPresses > 0) {
 			dy += 0.0009;
-			
-			//If the player just hit the ground, reset speed and position.
+
+			// If the player just hit the ground, reset speed and position.
 			if (y > Settings.groundLevel) {
 				dy = 0;
 				y = Settings.groundLevel;
 				jumpKeyPresses = 0;
-				//Jumping burns fat.
-				fatLevel -= 0.05;	
+				// Jumping burns fat.
+				fatLevel -= 0.05;
 			}
 		}
 	}
@@ -123,15 +122,12 @@ public class FatBoyHero {
 		if (x < counterLimit) {
 			x = counterLimit;
 			dx = 0;
-		} else if (x >= 1) {
-			if(!gameEnded)
-			{
-				HighScoreMenu hm =new HighScoreMenu();
-				hm.inputName(123);
+		} else if (x >= 1.01) {
+			if (!gameEnded) {
 				gameEnded = true;
-				//main.endGame();
+				main.endGame(finalScore);
 			}
-			
+
 		}
 	}
 
@@ -141,25 +137,28 @@ public class FatBoyHero {
 	private void jump() {
 		jumping = true;
 		jumpKeyPresses++;
-		if (jumpKeyPresses < 12) {
+		if (jumpKeyPresses < 13) {
 			if (jumpKeyPresses == 1)
-				dy = -0.02 * (1 / (0.3 + fatLevel));
-			dy -= 0.001 * (1 / (0.3 + fatLevel));
+				dy = -0.02 * (1.75 - fatLevel * 0.75);
+			dy -= 0.001 * (1.75 - fatLevel * 0.75);
 		}
 	}
-
 
 	public void render(Graphics2D g) {
 		int absoluteX = (int) (x * Settings.width());
 		int absoluteY = (int) (y * Settings.height());
 		g.translate(absoluteX, absoluteY);
+		g.translate(-(int) (Settings.width() * 0.075 * fatLevel) / 2,
+				-(int) (Settings.height() * 0.125) / 2);
 
 		theRope.render(g, fatLevel);
-		
-		g.drawImage(image, 0, 0, (int) (Settings.width() * 0.075 * fatLevel), 
-						(int) (Settings.height() * 0.125), null);
+
+		g.drawImage(image, 0, 0, (int) (Settings.width() * 0.075 * fatLevel),
+				(int) (Settings.height() * 0.125), null);
 
 		// Reset the coordinate system to the top left of the screen
+		g.translate((int) (Settings.width() * 0.075 * fatLevel) / 2,
+				(int) (Settings.height() * 0.125) / 2);
 		g.translate(-absoluteX, -absoluteY);
 	}
 }

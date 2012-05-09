@@ -5,9 +5,9 @@ import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 
@@ -30,9 +30,12 @@ public class GameCanvas extends Canvas implements Runnable {
 	private Controller controller = new Controller();
 	private static List<FlyingObject> flyingObects = new LinkedList<FlyingObject>();
 	private static List<FlyingObject> FOtoBeRemoved = new LinkedList<FlyingObject>();
+	private int time = 0;
 	private int timeSinceLastFlyingObject = 0;
 	private int flyingObjectsSent = 0;
-	private int timeBetweenFlyingObjects = 100;
+	private int timeBetweenFlyingObjects = 60;
+	private Random rand = new Random();
+	private int chanceOfGettingABurger = 750;
 
 	// CONSTRUCTOR
 	public GameCanvas() {
@@ -68,10 +71,12 @@ public class GameCanvas extends Canvas implements Runnable {
 					"FatBoyTitlePixelated.png"));
 			fatBoyImage = ImageIO.read(getClass().getResource("FatBoy.png"));
 			carrotImage = ImageIO.read(getClass().getResource("carrot.png"));
-			hamburgerImage = ImageIO.read(getClass().getResource("Hamburger.png"));
+			hamburgerImage = ImageIO.read(getClass().getResource(
+					"Hamburger.png"));
 			appleImage = ImageIO.read(getClass().getResource("Apple.png"));
 			friesImage = ImageIO.read(getClass().getResource("pommes.png"));
-			iceCreamImage = ImageIO.read(getClass().getResource("IceCream.png"));
+			iceCreamImage = ImageIO
+					.read(getClass().getResource("IceCream.png"));
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -99,22 +104,43 @@ public class GameCanvas extends Canvas implements Runnable {
 	 */
 	public void run() {
 		while (running) {
+			time++;
 			timeSinceLastFlyingObject++;
-			if (!musicPlaying)
-				playMusic();
 
+			if (time % 150 == 0 && timeBetweenFlyingObjects > 15)
+					timeBetweenFlyingObjects -= 2;
+			
 			if (timeSinceLastFlyingObject == timeBetweenFlyingObjects) {
-				FlyingObject derp = new FlyingObject(friesImage, 0.8, 0.2, 50);
+				FlyingObject derp = null;
+				if (rand.nextInt(1000) < chanceOfGettingABurger) {
+					switch (rand.nextInt(3)) {
+					case 0:	derp = new FlyingObject(friesImage, 0.3, 0.2, 50);
+							break;
+					case 1: derp = new FlyingObject(hamburgerImage, 0.6, 0.2, 50);
+							break;
+					case 2: derp = new FlyingObject(iceCreamImage, 0.1, 0.1, 50);
+					}
+				} else{
+					switch (rand.nextInt(2)){
+					case 0: derp = new FlyingObject(appleImage, 0.9, -0.15, 80);
+							break;
+					case 1: derp = new FlyingObject(carrotImage, 0.75, -0.2, 80);
+							break;
+					}
+				}
+					
 				flyingObects.add(derp);
 
-				timeSinceLastFlyingObject = 0;
+				chanceOfGettingABurger--;
 				flyingObjectsSent++;
-				if (flyingObjectsSent % 2 == 0 && timeBetweenFlyingObjects > 30)
-					timeBetweenFlyingObjects -= 10;
+				timeSinceLastFlyingObject = 0;
 			}
 			update();
 			render();
 
+			if (!musicPlaying)
+				playMusic();
+			
 			for (FlyingObject fo : FOtoBeRemoved)
 				flyingObects.remove(fo);
 
@@ -166,17 +192,12 @@ public class GameCanvas extends Canvas implements Runnable {
 
 			// Sets the FatMeter according to FatBoy's FatPoints.
 			int fatMeterLevel = 0;
-			if (hero.getFatLevel() < 1.8) 
-			{
+			if (hero.getFatLevel() < 1.8) {
 				fatMeterLevel = (int) (-0.15 * Settings.height() * (hero
 						.getFatLevel()));
-			}
-			else if(hero.getFatLevel() < 0.6)
-			{
+			} else if (hero.getFatLevel() < 0.6) {
 				fatMeterLevel = 0;
-			}
-			else
-			{
+			} else {
 				fatMeterLevel = (int) (-0.3 * Settings.height() * 1.3);
 			}
 			g.setColor(Color.YELLOW);
@@ -198,20 +219,19 @@ public class GameCanvas extends Canvas implements Runnable {
 	 */
 	private void update() {
 		if (controller.keys[KeyEvent.VK_ESCAPE]) {
-			main.endGame();
+			main.endGame(hero.getFinalScore());
 		}
 		if (!title.isShowTitleScreen()) {
-			//Update all movable objects positions
+			// Update all movable objects positions
 			hero.update(controller);
 			for (FlyingObject fo : flyingObects)
 				fo.update();
-			
-			//Check for collisions between FatBoy and food
+
+			// Check for collisions between FatBoy and food
 			double x = hero.getX();
 			double y = hero.getY();
 			for (FlyingObject fo : flyingObects)
-				if(fo.checkForCollision(x, y))
-				{
+				if (fo.checkForCollision(x, y)) {
 					hero.setFatLevel(fo.fatpoints());
 					hero.setFinalScore(fo.highscore());
 					removeFlyingObject(fo);

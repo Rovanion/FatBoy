@@ -12,10 +12,11 @@ public class FlyingObject {
 	private double dy; //Velocity in y
 	private double x = -0.1; //Position in x
 	private double y = 0.5; //Position in y
-	private double rotation = 0;
+	private double rotation;
 	private double angularVelocity;
-	private int timeUntilRemoved = 50;
+	private int timeUntilRemoved = 40;
 	private Random r = new Random(); //Random generator
+	private double scale = 1;
 	
 	public FlyingObject(Image image, double elasticity, double fatpoints, int highscore) {
 		this.image = image;
@@ -27,7 +28,8 @@ public class FlyingObject {
 		dy = (0 - r.nextDouble()) * 0.03;
 		// Random initial speed between 0 and 0.05
 		dx = (r.nextDouble() + 0.2) * 0.02;
-		angularVelocity = (0.5 -r.nextDouble()) * 0.07;
+		angularVelocity = (0.5 -r.nextDouble()) * 0.1;
+		rotation = r.nextDouble();
 	}
 
 	public double fatpoints() {
@@ -48,8 +50,8 @@ public class FlyingObject {
 		if(y > Settings.groundLevel){
 			dy = -dy * elasticity;
 			y = Settings.groundLevel;
-			dx = dx * 0.9;
-			angularVelocity += dx;
+			angularVelocity += dx * 3;
+			dx = dx * elasticity;
 		}
 		
 		//If the object stops moving
@@ -59,6 +61,8 @@ public class FlyingObject {
 				angularVelocity -= 0.005;
 			else
 				angularVelocity = 0;
+			if(timeUntilRemoved < 10)
+				scale -= 0.1;
 		}
 		//Remove the object if it's time has come
 		if (timeUntilRemoved == 0)		
@@ -68,11 +72,12 @@ public class FlyingObject {
 	public void render(Graphics2D g) {
 		g.translate(Settings.width() * x, Settings.height() * y);
 		g.rotate(rotation);
-		g.translate(-image.getWidth(null)/2, -image.getHeight(null)/2);
+		g.translate(-image.getWidth(null)/2*scale, -image.getHeight(null)/2*scale);
 
-		g.drawImage(image, 0, 0, image.getWidth(null),image.getHeight(null), null);
+		g.drawImage(image, 0, 0, (int)(image.getWidth(null) * scale),
+				(int)(image.getHeight(null) * scale), null);
 		
-		g.translate(image.getWidth(null)/2, image.getHeight(null)/2);
+		g.translate(image.getWidth(null)/2*scale, image.getHeight(null)/2*scale);
 		g.rotate(-rotation);
 		g.translate(-Settings.width() * x, -Settings.height() * y);
 	}
@@ -80,8 +85,8 @@ public class FlyingObject {
 	 * Returns true if the given coordinates collide with the objecs hitbox.
 	 */
 	public boolean checkForCollision(double x, double y){
-		if(x < (this.x + 0.1) && x > (this.x - 0.1))
-			if(y < (this.y + 0.1) && y > (this.y -0.1))
+		if(x < (this.x + 0.05) && x > (this.x - 0.05))
+			if(y < (this.y + 0.05) && y > (this.y -0.05))
 				return true;
 		
 		return false;
