@@ -1,6 +1,5 @@
 import java.awt.Dimension;
 
-
 public class Settings {
 	public static final double groundLevel = 0.9;
 	public static final boolean musicPlaying = false;

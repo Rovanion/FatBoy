@@ -11,7 +11,7 @@ public class FatBoyHero {
 	private double dy = 0;
 	private double fatLevel = 1.6;
 	private double maxFat = 2.0;
-	private double counterLimit = 0.09;
+	private double counterLimit = 0.1;
 	private int jumpKeyPresses = 0;
 	private boolean jumping = false;
 	private Rope theRope = new Rope();
@@ -70,10 +70,10 @@ public class FatBoyHero {
 
 		if (controller.keys[KeyEvent.VK_RIGHT]
 				|| controller.keys[KeyEvent.VK_D]) {
-			dx += 0.0004;
+			dx += 0.0008;
 		}
 		if (controller.keys[KeyEvent.VK_LEFT] || controller.keys[KeyEvent.VK_A]) {
-			dx -= 0.0004;
+			dx -= 0.0008;
 			// Moving against the rope's force burns fat
 			fatLevel -= 0.001 * (1.75 - x);
 		}
@@ -122,7 +122,7 @@ public class FatBoyHero {
 		if (x < counterLimit) {
 			x = counterLimit;
 			dx = 0;
-		} else if (x >= 1) {
+		} else if (x >= 1.01) {
 			if (!gameEnded) {
 				gameEnded = true;
 				main.endGame();
@@ -139,8 +139,8 @@ public class FatBoyHero {
 		jumpKeyPresses++;
 		if (jumpKeyPresses < 13) {
 			if (jumpKeyPresses == 1)
-				dy = -0.01 * (2.2 - fatLevel);
-			dy -= 0.001 * (2.2 - fatLevel);
+				dy = -0.02 * (1.75 - fatLevel * 0.75);
+			dy -= 0.001 * (1.75 - fatLevel * 0.75);
 		}
 	}
 

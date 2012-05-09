@@ -5,7 +5,6 @@ import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -31,9 +30,10 @@ public class GameCanvas extends Canvas implements Runnable {
 	private Controller controller = new Controller();
 	private static List<FlyingObject> flyingObects = new LinkedList<FlyingObject>();
 	private static List<FlyingObject> FOtoBeRemoved = new LinkedList<FlyingObject>();
+	private int time = 0;
 	private int timeSinceLastFlyingObject = 0;
 	private int flyingObjectsSent = 0;
-	private int timeBetweenFlyingObjects = 70;
+	private int timeBetweenFlyingObjects = 60;
 	private Random rand = new Random();
 	private int chanceOfGettingABurger = 750;
 
@@ -104,23 +104,25 @@ public class GameCanvas extends Canvas implements Runnable {
 	 */
 	public void run() {
 		while (running) {
+			time++;
 			timeSinceLastFlyingObject++;
-			if (!musicPlaying)
-				playMusic();
 
+			if (time % 150 == 0 && timeBetweenFlyingObjects > 15)
+					timeBetweenFlyingObjects -= 2;
+			
 			if (timeSinceLastFlyingObject == timeBetweenFlyingObjects) {
 				FlyingObject derp = null;
 				if (rand.nextInt(1000) < chanceOfGettingABurger) {
 					switch (rand.nextInt(3)) {
-					case 0:	derp = new FlyingObject(friesImage, 0.3, 0.25, 50);
+					case 0:	derp = new FlyingObject(friesImage, 0.3, 0.2, 50);
 							break;
-					case 1: derp = new FlyingObject(hamburgerImage, 0.6, 0.25, 50);
+					case 1: derp = new FlyingObject(hamburgerImage, 0.6, 0.2, 50);
 							break;
 					case 2: derp = new FlyingObject(iceCreamImage, 0.1, 0.1, 50);
 					}
 				} else{
 					switch (rand.nextInt(2)){
-					case 0: derp = new FlyingObject(appleImage, 0.9, -0.1, 80);
+					case 0: derp = new FlyingObject(appleImage, 0.9, -0.15, 80);
 							break;
 					case 1: derp = new FlyingObject(carrotImage, 0.75, -0.2, 80);
 							break;
@@ -132,12 +134,13 @@ public class GameCanvas extends Canvas implements Runnable {
 				chanceOfGettingABurger--;
 				flyingObjectsSent++;
 				timeSinceLastFlyingObject = 0;
-				if (flyingObjectsSent % 5 == 0 && timeBetweenFlyingObjects > 20)
-					timeBetweenFlyingObjects -= 5;
 			}
 			update();
 			render();
 
+			if (!musicPlaying)
+				playMusic();
+			
 			for (FlyingObject fo : FOtoBeRemoved)
 				flyingObects.remove(fo);
 
