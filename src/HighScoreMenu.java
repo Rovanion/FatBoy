@@ -100,7 +100,7 @@ public class HighScoreMenu {
 		return name;
 	}
 	
-	public static String getScore() {
-		return scoreLabel.getText();
+	public static Score getScore() {
+		return score;
 	}
 }
