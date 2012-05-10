@@ -13,7 +13,7 @@ public class main {
 	public static void endGame(Score playerScore) {
 		if(Settings.showHiScore){
 			HighScoreMenu hm = new HighScoreMenu();
-			hm.inputName();	
+			hm.inputName(playerScore);	
 		}
 		else
 			shutDown();
