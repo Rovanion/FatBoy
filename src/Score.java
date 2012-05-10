@@ -14,8 +14,6 @@ public class Score implements Serializable{
 	}
 	
 	public Score(){
-		this.score =score;
-		this.name = name;
 		
 	}
 
