@@ -90,4 +90,8 @@ public class HighScoreMenu {
 	public static String getName() {
 		return name;
 	}
+	
+	public static String getScore() {
+		return scoreLabel.getText();
+	}
 }
