@@ -6,13 +6,16 @@ import java.awt.event.*;
 public class HighScoreMenu {
 
 	static JFrame window = new JFrame();
-	static JButton knapp = new JButton("Klar");
-	static JTextArea textruta = new JTextArea();
-	static JLabel label = new JLabel("Ange ditt namn:");
+	static JButton button = new JButton("Fatastic");
+	static JTextArea textBox = new JTextArea();
+	static JLabel label = new JLabel("Name:");
+	static JLabel yourScoreLabel = new JLabel("Your score:");
+	static JLabel scoreLabel;
 	static String name = new String();
 
-	public static void inputName() {
+	public static void inputName(Score score) {
 
+		scoreLabel = new JLabel(Integer.toString(score.getScore()));
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setSize((int) (Settings.width() * 0.25),
 				(int) (Settings.height() * 0.25)); // Bredd och höjd.
@@ -37,19 +40,22 @@ public class HighScoreMenu {
 		// Koordinatsystemet börjar i övre vönstra hörnet,
 		// y vöxer nedöt. Enheten ör bildpunkter.
 		//
-		content.add(knapp);
+		content.add(button);
 		content.add(label);
-		content.add(textruta);
-		knapp.addActionListener(new ActionListener() {
+		content.add(textBox);
+		content.add(scoreLabel);
+		content.add(yourScoreLabel);
+		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 
-				if (ae.getSource() == knapp) {
-					name = textruta.getText();
+				if (ae.getSource() == button) {
+					name = textBox.getText();
 					main.shutDown();
 				}
 			}
 		});
 
+	
 		//
 		// Argumenten till setBounds() ör x, y, bredd, höjd.
 		//
@@ -57,14 +63,22 @@ public class HighScoreMenu {
 				(int) (window.getHeight() * 0.005),
 				(int) (window.getWidth() * 0.97),
 				(int) (window.getHeight() * 0.20));
-		textruta.setBounds((int) (window.getWidth() * 0.015),
+		textBox.setBounds((int) (window.getWidth() * 0.015),
 				(int) (window.getHeight() * 0.20),
 				(int) (window.getWidth() * 0.97),
 				(int) (window.getHeight() * 0.10));
-		knapp.setBounds((int) (window.getWidth() * 0.33),
+		button.setBounds((int) (window.getWidth() * 0.33),
 				(int) (window.getHeight() * 0.35),
 				(int) (window.getWidth() * 0.33),
 				(int) (window.getHeight() * 0.20));
+		scoreLabel.setBounds((int) (window.getWidth() * 0.45),
+				(int) (window.getHeight() * 0.5),
+				(int) (window.getWidth() * 0.8),
+				(int) (window.getHeight() * 0.5));
+		yourScoreLabel.setBounds((int) (window.getWidth() * 0.05),
+				(int) (window.getHeight() * 0.5),
+				(int) (window.getWidth() * 0.8),
+				(int) (window.getHeight() * 0.5));
 
 		//
 		// öppna fönstret.
