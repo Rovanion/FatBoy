@@ -61,8 +61,8 @@ public class FlyingObject {
 				angularVelocity -= 0.005;
 			else
 				angularVelocity = 0;
-			if(timeUntilRemoved < 10)
-				scale -= 0.1;
+			if(timeUntilRemoved < 7)
+				scale -= 0.15;
 		}
 		//Remove the object if it's time has come
 		if (timeUntilRemoved == 0)		
