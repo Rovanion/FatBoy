@@ -11,8 +11,17 @@ public class HighScoreMenu {
 	static JLabel label = new JLabel("Name:");
 	static JLabel yourScoreLabel = new JLabel("Your score:");
 	static JLabel scoreLabel;
+	static JTextArea textruta = new JTextArea();
 	static String name = new String();
+	static ShowHighScore shs;
+	static Score score;
 
+	public HighScoreMenu(Score pScore)
+	{
+		shs = new ShowHighScore(pScore);
+		score = pScore;
+	}
+	
 	public static void inputName(Score score) {
 
 		scoreLabel = new JLabel(Integer.toString(score.getScore()));
@@ -49,8 +58,8 @@ public class HighScoreMenu {
 			public void actionPerformed(ActionEvent ae) {
 
 				if (ae.getSource() == button) {
-					name = textBox.getText();
-					main.shutDown();
+					name = textruta.getText();
+					shs.showScore();
 				}
 			}
 		});

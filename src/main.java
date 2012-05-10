@@ -1,6 +1,6 @@
 public class main {
 
-	private static HighScoreMenu hmenu = new HighScoreMenu();
+	private static HighScoreMenu hmenu;
 	/**
 	 * Main jumpstarts the application.
 	 * 
@@ -13,7 +13,7 @@ public class main {
 	}
 	public static void endGame(Score playerScore) {
 		if(Settings.showHiScore){
-			
+			hmenu = new HighScoreMenu(playerScore);
 			hmenu.inputName(playerScore);	
 		}
 		else

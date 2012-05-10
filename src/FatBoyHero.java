@@ -15,6 +15,7 @@ public class FatBoyHero {
 	private int jumpKeyPresses = 0;
 	private boolean jumping = false;
 	private Rope theRope = new Rope();
+	private Foot leftFoot = new Foot();
 	private boolean gameEnded;
 	private Score finalScore;
 
@@ -150,7 +151,6 @@ public class FatBoyHero {
 		g.translate(absoluteX, absoluteY);
 		g.translate(-(int) (Settings.width() * 0.075 * fatLevel) / 2,
 				-(int) (Settings.height() * 0.125) / 2);
-
 		theRope.render(g, fatLevel);
 
 		g.drawImage(image, 0, 0, (int) (Settings.width() * 0.075 * fatLevel),
@@ -159,6 +159,7 @@ public class FatBoyHero {
 		// Reset the coordinate system to the top left of the screen
 		g.translate((int) (Settings.width() * 0.075 * fatLevel) / 2,
 				(int) (Settings.height() * 0.125) / 2);
+		
 		g.translate(-absoluteX, -absoluteY);
 	}
 }
