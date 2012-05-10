@@ -159,7 +159,7 @@ public class FatBoyHero {
 		// Reset the coordinate system to the top left of the screen
 		g.translate((int) (Settings.width() * 0.075 * fatLevel) / 2,
 				(int) (Settings.height() * 0.125) / 2);
-		
+		leftFoot.render(g, x, y);
 		g.translate(-absoluteX, -absoluteY);
 	}
 }

@@ -6,7 +6,7 @@ import java.awt.event.*;
 public class ShowHighScore {
 
 	static JFrame window = new JFrame();
-	static JButton button = new JButton("Fattastik");
+	static JButton button = new JButton("Obeseome");
 	static JLabel label;
 	
 	public ShowHighScore(Score score)
