@@ -11,7 +11,7 @@ public class FatBoyHero {
 	private double dy = 0;
 	private double fatLevel = 1.6;
 	private double maxFat = 2.0;
-	private double counterLimit = 0.1;
+	private double counterLimit = 0.14;
 	private int jumpKeyPresses = 0;
 	private boolean jumping = false;
 	private Rope theRope = new Rope();

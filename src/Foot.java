@@ -45,6 +45,9 @@ public class Foot {
 		boyPosx = posX;
 		boyPosy = posY;
 		g.translate(boyPosx,boyPosy);
+		g.drawImage(footImage, 0, (int)(Settings.height()*0.03), (int)(Settings.width()*0.05), (int)(Settings.height()*0.04), null);
+		g.translate(-boyPosx,-boyPosy);
+		
 	}
 
 }
