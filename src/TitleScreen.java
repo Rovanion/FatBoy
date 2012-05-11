@@ -41,7 +41,7 @@ public class TitleScreen {
 			Settings.showTitleScreen = false;
 		}
 	}
-
+	
 	public void render(Graphics2D g, int width, int height) {
 		g.drawImage(titleScreen, 0, 0, width, height, null);
 		if(flash==maxFlash || showTut)

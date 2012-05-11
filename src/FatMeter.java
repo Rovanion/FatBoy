@@ -9,9 +9,9 @@ public class FatMeter {
 			g.translate(Settings.width() * 0.1,Settings.height() * 0.95);
 			g.rotate(Math.PI);
 			
-			g.setColor(Color.BLACK);
+			g.setColor(Color.darkGray);
 			g.fillRect(0, 0, (int)(Settings.width() * 0.03), 
-					(int)(Settings.height() * 0.5));
+					(int)(Settings.height() * 0.3));
 			g.setColor(Color.YELLOW);
 			g.fillRect(0, 0, (int)(Settings.width() * 0.03), 
 					(int)(Settings.height() * fatPoints * 0.12));
