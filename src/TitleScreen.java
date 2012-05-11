@@ -6,27 +6,17 @@ import java.awt.event.KeyEvent;
 public class TitleScreen 
 {
 	private Image titleScreen;
-	private boolean showTitleScreen;
 	
 	public TitleScreen(Image img)
 	{
 		titleScreen = img;
-		showTitleScreen=true; //öndrad för att slippa titleScreen under testning. öndra tbax!
-	}
-	
-	public boolean isShowTitleScreen() {
-		return showTitleScreen;
-	}
-
-	public void setShowTitleScreen(boolean showTitleScreen) {
-		this.showTitleScreen = showTitleScreen;
 	}
 
 	public void update(Controller controller)
 	{
 		if (controller.keys[KeyEvent.VK_ENTER]) 
 		{
-			showTitleScreen = false;
+			Settings.showTitleScreen = false;
 		}
 	}
 	

@@ -89,7 +89,7 @@ public class GameCanvas extends Canvas implements Runnable {
 			music.start();
 			titleMusic = false;
 		}
-		if (!title.isShowTitleScreen()) {
+		if (!Settings.showTitleScreen) {
 			music.stop();
 			music = new PlayWave("src/GameTrack04.wav");
 			music.start();
@@ -184,7 +184,7 @@ public class GameCanvas extends Canvas implements Runnable {
 		BufferStrategy strategy = getBufferStrategy();
 		Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
 
-		if (title.isShowTitleScreen()) {
+		if (Settings.showTitleScreen) {
 			title.render(g, getWidth(), getHeight());
 		}
 
@@ -210,7 +210,7 @@ public class GameCanvas extends Canvas implements Runnable {
 		if (controller.keys[KeyEvent.VK_ESCAPE]) {
 			main.endGame(hero.getFinalScore());
 		}
-		if (!title.isShowTitleScreen()) {
+		if (!Settings.showTitleScreen) {
 			// Update all movable objects positions
 			hero.update(controller);
 			for (FlyingObject fo : flyingObects)
