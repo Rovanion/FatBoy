@@ -105,36 +105,16 @@ public class GameCanvas extends Canvas implements Runnable {
 	 */
 	public void run() {
 		while (running) {
-			time++;
-			timeSinceLastFlyingObject++;
-
-			if (time % 150 == 0 && timeBetweenFlyingObjects > 15)
+			if(!Settings.showTitleScreen){
+				time++;
+				timeSinceLastFlyingObject++;
+				if (time % 150 == 0 && timeBetweenFlyingObjects > 15)
 					timeBetweenFlyingObjects -= 2;
-					
-			if (timeSinceLastFlyingObject >= timeBetweenFlyingObjects) {
-				FlyingObject derp = null;
-				if (rand.nextInt(1000) < chanceOfGettingABurger) {
-					switch (rand.nextInt(3)) {
-					case 0:	derp = new FlyingObject(friesImage, 0.3, 0.2, 50);
-							break;
-					case 1: derp = new FlyingObject(hamburgerImage, 0.6, 0.2, 50);
-							break;
-					case 2: derp = new FlyingObject(iceCreamImage, 0.1, 0.1, 50);
-					}
-				} else{
-					switch (rand.nextInt(2)){
-					case 0: derp = new FlyingObject(appleImage, 0.9, -0.15, 80);
-							break;
-					case 1: derp = new FlyingObject(carrotImage, 0.75, -0.2, 80);
-							break;
-					}
-				}
-				timeSinceLastFlyingObject = 0;		
-				chanceOfGettingABurger--;
-				flyingObjectsSent++;
-				flyingObects.add(derp);
+				
+				if (timeSinceLastFlyingObject >= timeBetweenFlyingObjects)
+					addFlyingObject();
 			}
-			
+				
 			update();
 			render();
 
@@ -163,7 +143,7 @@ public class GameCanvas extends Canvas implements Runnable {
 			if(Settings.liveDebugging)
 				System.out.println("FO-timing:" +timeSinceLastFlyingObject + " " + 
 						timeBetweenFlyingObjects + " " + chanceOfGettingABurger
-						+ " FatLvl:" + hero.getFatLevel());
+						+ " FatLvl:" + hero.getFatLevel() + " Points:" + hero.getFinalScore().getScore());
 		}
 	}
 
@@ -234,7 +214,29 @@ public class GameCanvas extends Canvas implements Runnable {
 	}
 
 	public static void removeFlyingObject(FlyingObject fo) {
-
 		FOtoBeRemoved.add(fo);
+	}
+		public void addFlyingObject(){
+			FlyingObject derp = null;
+					if (rand.nextInt(1000) < chanceOfGettingABurger) {
+						switch (rand.nextInt(3)) {
+						case 0:	derp = new FlyingObject(friesImage, 0.3, 0.2, 50);
+								break;
+						case 1: derp = new FlyingObject(hamburgerImage, 0.6, 0.2, 50);
+								break;
+						case 2: derp = new FlyingObject(iceCreamImage, 0.1, 0.1, 50);
+						}
+					} else{
+						switch (rand.nextInt(2)){
+						case 0: derp = new FlyingObject(appleImage, 0.9, -0.15, 80);
+								break;
+						case 1: derp = new FlyingObject(carrotImage, 0.75, -0.2, 80);
+								break;
+						}
+					}
+					timeSinceLastFlyingObject = 0;		
+					chanceOfGettingABurger--;
+					flyingObjectsSent++;
+					flyingObects.add(derp);
 	}
 }
