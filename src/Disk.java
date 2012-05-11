@@ -7,8 +7,9 @@ import javax.imageio.ImageIO;
 
 public class Disk {
 	private Image diskImage;
-	private double x = -0.2;
-	private double y = 0.49;
+	private double x = -0.067;
+	private double y = 0.51;
+
 
 	public Disk() {
 		try {
@@ -18,15 +19,12 @@ public class Disk {
 		}
 	}
 
-	public void render(Graphics2D g) {
-
-		// g.translate(x, y);
-		
-		int absoluteX = (int) (x * Settings.height());
+	public void render(Graphics2D g) {		
+		int absoluteX = (int) (x * Settings.width());
 		int absoluteY = (int) (y * Settings.height());
 
-		g.drawImage(diskImage, absoluteX, absoluteY, diskImage.getWidth(null),
-				diskImage.getHeight(null), null);
+		//g.drawImage(diskImage, absoluteX, absoluteY, (int)(Settings.width() * 0.23),
+			//	(int) (Settings.height() * 0.6), null);
 	}
 
 }

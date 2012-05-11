@@ -36,6 +36,7 @@ public class GameCanvas extends Canvas implements Runnable {
 	private int timeBetweenFlyingObjects = 60;
 	private Random rand = new Random();
 	private int chanceOfGettingABurger = 750;
+	private FatMeter fm = new FatMeter();
 
 	// CONSTRUCTOR
 	public GameCanvas() {
@@ -191,19 +192,7 @@ public class GameCanvas extends Canvas implements Runnable {
 			g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), null);
 
 			// Sets the FatMeter according to FatBoy's FatPoints.
-			int fatMeterLevel = 0;
-			if (hero.getFatLevel() < 1.8) {
-				fatMeterLevel = (int) (-0.15 * Settings.height() * (hero
-						.getFatLevel()));
-			} else if (hero.getFatLevel() < 0.6) {
-				fatMeterLevel = 0;
-			} else {
-				fatMeterLevel = (int) (-0.3 * Settings.height() * 1.3);
-			}
-			g.setColor(Color.YELLOW);
-			g.fillRect((int) (0.05 * Settings.width()),
-					(int) (0.98 * Settings.height()), 40, fatMeterLevel);
-
+			fm.render(g, hero.getFatLevel());
 			//Render objects
 			disk.render(g);
 			hero.render(g);
