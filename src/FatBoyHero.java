@@ -15,7 +15,8 @@ public class FatBoyHero {
 	private int jumpKeyPresses = 0;
 	private boolean jumping = false;
 	private Rope theRope = new Rope();
-	private Foot leftFoot = new Foot();
+	private LeftFoot leftFoot = new LeftFoot();
+	private RightFoot rightFoot = new RightFoot();
 	private boolean gameEnded;
 	private Score finalScore;
 
@@ -69,6 +70,9 @@ public class FatBoyHero {
 		// Force = k * Distance From Equilibrium * Mass
 		dx += 0.0003 * (1.75 - x) * (1 / (fatLevel)); // Elastic rope:
 
+		leftFoot.update(controller);
+		rightFoot.update(controller);
+		
 		if (controller.keys[KeyEvent.VK_RIGHT]
 				|| controller.keys[KeyEvent.VK_D]) {
 			dx += 0.0008;
@@ -108,6 +112,10 @@ public class FatBoyHero {
 				dy = 0;
 				y = Settings.groundLevel;
 				jumpKeyPresses = 0;
+				
+				leftFoot.setJump(false);
+				rightFoot.setJump(false);
+				
 				// Jumping burns fat.
 				fatLevel -= 0.05;
 			}
@@ -149,6 +157,7 @@ public class FatBoyHero {
 		int absoluteX = (int) (x * Settings.width());
 		int absoluteY = (int) (y * Settings.height());
 		g.translate(absoluteX, absoluteY);
+		rightFoot.render(g, x, y, fatLevel);
 		g.translate(-(int) (Settings.width() * 0.075 * fatLevel) / 2,
 				-(int) (Settings.height() * 0.125) / 2);
 		theRope.render(g, fatLevel);
@@ -159,7 +168,7 @@ public class FatBoyHero {
 		// Reset the coordinate system to the top left of the screen
 		g.translate((int) (Settings.width() * 0.075 * fatLevel) / 2,
 				(int) (Settings.height() * 0.125) / 2);
-		leftFoot.render(g, x, y);
+		leftFoot.render(g, x, y, fatLevel);
 		g.translate(-absoluteX, -absoluteY);
 	}
 }
