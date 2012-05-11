@@ -15,7 +15,7 @@ public class RightFoot {
 	private double centerX=(int)(Settings.width()*-0.05);
 	private double minX=-1.5;
 	private double maxY;
-	private double centerY=(int)(Settings.height()*0.03);
+	private double centerY=(int)(Settings.height()*0.027);
 	private double minY;
 	private double jumpY;
 	private double fatLevel;
