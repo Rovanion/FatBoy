@@ -1,5 +1,6 @@
 public class main {
 
+	private static HighScoreMenu hmenu;
 	/**
 	 * Main jumpstarts the application.
 	 * 
@@ -12,8 +13,8 @@ public class main {
 	}
 	public static void endGame(Score playerScore) {
 		if(Settings.showHiScore){
-			HighScoreMenu hm = new HighScoreMenu();
-			hm.inputName();	
+			hmenu = new HighScoreMenu(playerScore);
+			hmenu.inputName(playerScore);	
 		}
 		else
 			shutDown();
@@ -22,7 +23,7 @@ public class main {
 	public static void shutDown() {
 		HighscoreManager hm = new HighscoreManager();
 		// Hör sötter vi in vöra variabler för poöng och namn 
-		hm.addScore( HighScoreMenu.getName(),240);
+		hm.addScore( hmenu.getName(),hmenu.getScore());
 		System.exit(0);
 
 	}

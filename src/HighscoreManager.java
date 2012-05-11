@@ -29,9 +29,10 @@ public class HighscoreManager {
 		Collections.sort(scores, comparator);
 	}
 
-	public void addScore(String name, int score) {
+	public void addScore(String name, Score score) {
 		loadScoreFile();
-		scores.add(new Score());
+		
+		scores.add(score);
 		updateScoreFile();
 	}
 
