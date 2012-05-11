@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 public class GameCanvas extends Canvas implements Runnable {
 	// FIELDS
@@ -84,6 +87,9 @@ public class GameCanvas extends Canvas implements Runnable {
 		}
 	}
 
+	/*private void playMusic() {
+		if (!title.isShowTitleScreen()) {
+=======
 	private void playMusic() {
 		if (titleMusic) {
 			music.start();
@@ -91,12 +97,28 @@ public class GameCanvas extends Canvas implements Runnable {
 		}
 		if (!Settings.showTitleScreen) {
 			music.stop();
+>>>>>>> 8c613a35f1fce3155649658ed7629b6d57f8be9b
 			music = new PlayWave("src/GameTrack04.wav");
 			music.start();
 			musicPlaying = true;
 		}
 
-	}
+	}*/
+	
+	 public synchronized void playSound() {
+		    new Thread(new Runnable() { // the wrapper thread is unnecessary, unless it blocks on the Clip finishing, see comments
+		      public void run() {
+		        try {
+		          Clip clip = AudioSystem.getClip();
+		          AudioInputStream inputStream = AudioSystem.getAudioInputStream(main.class.getResourceAsStream("/src/GameTrack02.wav"));
+		          clip.open(inputStream);
+		          clip.start(); 
+		        } catch (Exception e) {
+		          System.err.println(e.getMessage());
+		        }
+		      }
+		    }).start();
+		  }
 
 	// METHODS
 	/**
@@ -117,9 +139,6 @@ public class GameCanvas extends Canvas implements Runnable {
 				
 			update();
 			render();
-
-			if (musicPlaying)
-				playMusic();
 			
 			for (FlyingObject fo : FOtoBeRemoved)
 				flyingObects.remove(fo);
@@ -131,7 +150,7 @@ public class GameCanvas extends Canvas implements Runnable {
 				running = false;
 			}
 
-			if (controller.keys[KeyEvent.VK_M]) {
+			/*if (controller.keys[KeyEvent.VK_M]) {
 				if (musicPaused) {
 					music.unmute();
 					musicPaused = false;
@@ -139,7 +158,7 @@ public class GameCanvas extends Canvas implements Runnable {
 					music.mute();
 					musicPaused = true;
 				}
-			}
+			}*/
 			if(Settings.liveDebugging)
 				System.out.println("FO-timing:" +timeSinceLastFlyingObject + " " + 
 						timeBetweenFlyingObjects + " " + chanceOfGettingABurger
@@ -156,6 +175,7 @@ public class GameCanvas extends Canvas implements Runnable {
 			createBufferStrategy(3);
 			running = true;
 			t.start();
+			music.run();
 		}
 	}
 
