@@ -23,8 +23,8 @@ public class Disk {
 		int absoluteX = (int) (x * Settings.width());
 		int absoluteY = (int) (y * Settings.height());
 
-		//g.drawImage(diskImage, absoluteX, absoluteY, (int)(Settings.width() * 0.23),
-			//	(int) (Settings.height() * 0.6), null);
+		g.drawImage(diskImage, absoluteX, absoluteY, (int)(Settings.width() * 0.23),
+				(int) (Settings.height() * 0.6), null);
 	}
 
 }

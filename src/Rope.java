@@ -44,7 +44,6 @@ public class Rope {
 		g.rotate(-angle);
 		g.drawImage(ropeTexture, 0, 0, (int) ropeLength, 24, null);
 		g.rotate(angle);
-		System.out.println(angle);
 
 		g.translate(-(int) (0.065 * Settings.width() * fatLevel),
 				-(int) (0.06 * Settings.height()));
