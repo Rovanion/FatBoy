@@ -5,9 +5,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-
-public class TitleScreen 
-{
+public class TitleScreen {
 	private Image titleScreen;
 	private Image buttonTut;
 	private Image insertCoin;
@@ -38,20 +36,13 @@ public class TitleScreen
 		return showTitleScreen;
 	}
 
-	public void setShowTitleScreen(boolean showTitleScreen) {
-		this.showTitleScreen = showTitleScreen;
-	}
-
-	public void update(Controller controller)
-	{
-		if (controller.keys[KeyEvent.VK_ENTER]) 
-		{
-			showTitleScreen = false;
+	public void update(Controller controller) {
+		if (controller.keys[KeyEvent.VK_ENTER]) {
+			Settings.showTitleScreen = false;
 		}
 	}
-	
-	public void render(Graphics2D g, int width, int height)
-	{
+
+	public void render(Graphics2D g, int width, int height) {
 		g.drawImage(titleScreen, 0, 0, width, height, null);
 		if(flash==maxFlash || showTut)
 		{

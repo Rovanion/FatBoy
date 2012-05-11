@@ -39,6 +39,7 @@ public class GameCanvas extends Canvas implements Runnable {
 	private int timeBetweenFlyingObjects = 60;
 	private Random rand = new Random();
 	private int chanceOfGettingABurger = 750;
+	private FatMeter fm = new FatMeter();
 
 	// CONSTRUCTOR
 	public GameCanvas() {
@@ -88,6 +89,15 @@ public class GameCanvas extends Canvas implements Runnable {
 
 	/*private void playMusic() {
 		if (!title.isShowTitleScreen()) {
+=======
+	private void playMusic() {
+		if (titleMusic) {
+			music.start();
+			titleMusic = false;
+		}
+		if (!Settings.showTitleScreen) {
+			music.stop();
+>>>>>>> 8c613a35f1fce3155649658ed7629b6d57f8be9b
 			music = new PlayWave("src/GameTrack04.wav");
 			music.start();
 			musicPlaying = true;
@@ -170,7 +180,9 @@ public class GameCanvas extends Canvas implements Runnable {
 				}
 			}*/
 			if(Settings.liveDebugging)
-				System.out.println(timeSinceLastFlyingObject + " " + timeBetweenFlyingObjects + " " + chanceOfGettingABurger);
+				System.out.println("FO-timing:" +timeSinceLastFlyingObject + " " + 
+						timeBetweenFlyingObjects + " " + chanceOfGettingABurger
+						+ " FatLvl:" + hero.getFatLevel());
 		}
 	}
 
@@ -194,7 +206,7 @@ public class GameCanvas extends Canvas implements Runnable {
 		BufferStrategy strategy = getBufferStrategy();
 		Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
 
-		if (title.isShowTitleScreen()) {
+		if (Settings.showTitleScreen) {
 			title.render(g, getWidth(), getHeight());
 		}
 
@@ -202,19 +214,7 @@ public class GameCanvas extends Canvas implements Runnable {
 			g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), null);
 
 			// Sets the FatMeter according to FatBoy's FatPoints.
-			int fatMeterLevel = 0;
-			if (hero.getFatLevel() < 1.8) {
-				fatMeterLevel = (int) (-0.15 * Settings.height() * (hero
-						.getFatLevel()));
-			} else if (hero.getFatLevel() < 0.6) {
-				fatMeterLevel = 0;
-			} else {
-				fatMeterLevel = (int) (-0.3 * Settings.height() * 1.3);
-			}
-			g.setColor(Color.YELLOW);
-			g.fillRect((int) (0.05 * Settings.width()),
-					(int) (0.98 * Settings.height()), 40, fatMeterLevel);
-
+			fm.render(g, hero.getFatLevel());
 			//Render objects
 			disk.render(g);
 			hero.render(g);
@@ -232,7 +232,7 @@ public class GameCanvas extends Canvas implements Runnable {
 		if (controller.keys[KeyEvent.VK_ESCAPE]) {
 			main.endGame(hero.getFinalScore());
 		}
-		if (!title.isShowTitleScreen()) {
+		if (!Settings.showTitleScreen) {
 			// Update all movable objects positions
 			hero.update(controller);
 			for (FlyingObject fo : flyingObects)
