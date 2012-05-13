@@ -6,6 +6,7 @@ import java.awt.event.*;
 public class ShowHighScore {
 
 	static JFrame window = new JFrame();
+	static private ShowHighScore self; 
 	static JButton button = new JButton("Obeseome");
 	static JLabel label;
 	
@@ -46,6 +47,7 @@ public class ShowHighScore {
 			public void actionPerformed(ActionEvent ae) {
 
 				if (ae.getSource() == button) {
+					self.window.dispose();
 					main.shutDown();
 				}
 			}
