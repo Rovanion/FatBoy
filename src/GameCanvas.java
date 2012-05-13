@@ -210,7 +210,7 @@ public class GameCanvas extends Canvas implements Runnable {
 	 */
 	private void update() {
 		if (controller.keys[KeyEvent.VK_ESCAPE]) {
-			main.endGame(hero.getFinalScore());
+				System.exit(0);
 		}
 		if (!Settings.showTitleScreen) {
 			// Update all movable objects positions
