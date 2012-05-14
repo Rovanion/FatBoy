@@ -11,7 +11,7 @@ public class FatMeter {
 			
 			g.setColor(Color.BLACK);
 			g.fillRect(0, 0, (int)(Settings.width() * 0.03), 
-					(int)(Settings.height() * 0.5));
+					(int)(Settings.height() * 0.3));
 			g.setColor(Color.YELLOW);
 			g.fillRect(0, 0, (int)(Settings.width() * 0.03), 
 					(int)(Settings.height() * fatPoints * 0.12));
