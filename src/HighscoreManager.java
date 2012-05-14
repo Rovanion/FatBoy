@@ -94,7 +94,7 @@ public class HighscoreManager {
 		}
 		while (i < x) {
 			highscoreString += (i + 1) + ".\t" + scores.get(i).getName()
-					+ "\t\t" + scores.get(i).getScore() + "\n";
+					+ "\t\t\t\t" + scores.get(i).getScore() + "\n";
 			i++;
 		}
 		return highscoreString;

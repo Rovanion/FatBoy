@@ -9,7 +9,6 @@ public class main {
 	public static void main(String[] args) {
 		GameCanvas newCanvas = new GameCanvas();
 		CreateFrame frame = new CreateFrame(newCanvas);
-
 	}
 	public static void endGame(int playerScore) {
 		if(Settings.showHiScore){
@@ -22,7 +21,6 @@ public class main {
 
 	public static void shutDown() {
 		System.exit(0);
-
 	}
 
 }
