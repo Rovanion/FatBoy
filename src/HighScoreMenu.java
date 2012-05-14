@@ -61,6 +61,10 @@ public class HighScoreMenu {
 
 				if (ae.getSource() == button) {
 					name = textruta.getText();
+					HighscoreManager hm = new HighscoreManager();
+					// Hör sötter vi in vöra variabler för poöng och namn 
+					hm.addScore(name,getScore());
+					
 				    self.window.dispose();
 				    shs.showScore();
 					
