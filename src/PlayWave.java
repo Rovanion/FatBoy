@@ -37,7 +37,7 @@ public class PlayWave extends Thread
     //METHODS
     public void run() { 
  
-    	while(true)
+    	while(Settings.musicPlaying)
     	{
     	
         File soundFile = new File(filename);
