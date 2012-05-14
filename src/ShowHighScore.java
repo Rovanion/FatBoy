@@ -8,12 +8,11 @@ public class ShowHighScore {
 	static JFrame window = new JFrame();
 	static private ShowHighScore self; 
 	static JButton button = new JButton("Obeseome");
-	static JLabel label;
+	//static JLabel label;
+	static JTextArea textBox = new JTextArea();
 	
-	public ShowHighScore(String name,int score)
+	public ShowHighScore()//String name,int score)
 	{
-		HighscoreManager hm = new HighscoreManager();
-		label = new JLabel(hm.getHighscoreString());
 	}
 
 	
@@ -43,7 +42,13 @@ public class ShowHighScore {
 		// y vöxer nedöt. Enheten ör bildpunkter.
 		//
 		content.add(button);
-		content.add(label);
+		//content.add(label);
+		content.add(textBox);
+		
+		HighscoreManager hm = new HighscoreManager();
+		//label = new JLabel(hm.getHighscoreString());
+		textBox.setText(hm.getHighscoreString());
+		
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 
@@ -57,14 +62,19 @@ public class ShowHighScore {
 		//
 		// Argumenten till setBounds() ör x, y, bredd, höjd.
 		//
-		label.setBounds((int) (window.getWidth() * 0.015),
-				(int) (window.getHeight() * 0.005),
-				(int) (window.getWidth() * 0.97),
-				(int) (window.getHeight() * 0.20));
+		/*label.setBounds((int) (window.getWidth() * 0.5),
+				(int) (window.getHeight() * 0.5),
+				(int) (window.getWidth() * 0.57),
+				(int) (window.getHeight() * 0.5));*/
 		button.setBounds((int) (window.getWidth() * 0.33),
-				(int) (window.getHeight() * 0.35),
+				(int) (window.getHeight() * 0.7),
 				(int) (window.getWidth() * 0.33),
-				(int) (window.getHeight() * 0.20));
+				(int) (window.getHeight() * 0.15));
+		textBox.setBounds((int) (window.getWidth() * 0.015),
+				(int) (window.getHeight() * 0.015),
+				(int) (window.getWidth() * 0.97),
+				(int) (window.getHeight() * 0.6));
+		textBox.enable(false);
 
 		//
 		// öppna fönstret.

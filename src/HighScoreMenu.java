@@ -12,13 +12,13 @@ public class HighScoreMenu {
 	static JLabel label = new JLabel("Name:");
 	static JLabel yourScoreLabel = new JLabel("Your score:");
 	static JLabel scoreLabel;
-	static JTextArea textruta = new JTextArea();
 	static String name = new String();
 	static ShowHighScore shs;
 	static int score;
 
 	public HighScoreMenu(int pScore)
 	{
+		shs = new ShowHighScore();
 		self= this;
 		score = pScore;
 	}
@@ -59,13 +59,12 @@ public class HighScoreMenu {
 			public void actionPerformed(ActionEvent ae) {
 
 				if (ae.getSource() == button) {
-					name = textruta.getText();
+					name = textBox.getText();
 					HighscoreManager hm = new HighscoreManager();
 					// Hör sötter vi in vöra variabler för poöng och namn 
 					hm.addScore(name,getScore());
 					
 				    self.window.dispose();
-				    shs = new ShowHighScore(name,score);
 				    shs.showScore();
 					
 				}

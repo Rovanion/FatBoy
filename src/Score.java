@@ -1,7 +1,7 @@
 import java.io.Serializable;
 
 
-public class Score  implements Serializable {
+public class Score implements Serializable {
     private int score;
     private String name;
 
@@ -13,8 +13,8 @@ public class Score  implements Serializable {
         return name;
     }
 
-    public Score(String naam, int score) {
+    public Score(String name, int score) {
         this.score = score;
-        this.name = naam;
+        this.name = name;
     }
 }
