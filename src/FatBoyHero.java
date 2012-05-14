@@ -43,11 +43,8 @@ public class FatBoyHero {
 	}
 
 	public void setFatLevel(double newFat) {
-		double oldFat = fatLevel;
-		if (fatLevel < maxFat) {
-			oldFat = oldFat + newFat;
-		}
-		this.fatLevel = oldFat;
+		if (fatLevel < maxFat)
+			fatLevel += newFat;
 	}
 
 	public double getX() {

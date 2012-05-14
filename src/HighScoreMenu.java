@@ -6,6 +6,7 @@ import java.awt.event.*;
 public class HighScoreMenu {
 
 	static JFrame window = new JFrame();
+	static private HighScoreMenu self;
 	static JButton button = new JButton("Fatastic");
 	static JTextArea textBox = new JTextArea();
 	static JLabel label = new JLabel("Name:");
@@ -19,6 +20,7 @@ public class HighScoreMenu {
 	public HighScoreMenu(Score pScore)
 	{
 		shs = new ShowHighScore(pScore);
+		self= this;
 		score = pScore;
 	}
 	
@@ -59,7 +61,13 @@ public class HighScoreMenu {
 
 				if (ae.getSource() == button) {
 					name = textruta.getText();
-					shs.showScore();
+					HighscoreManager hm = new HighscoreManager();
+					// Hör sötter vi in vöra variabler för poöng och namn 
+					hm.addScore(name,getScore());
+					
+				    self.window.dispose();
+				    shs.showScore();
+					
 				}
 			}
 		});
