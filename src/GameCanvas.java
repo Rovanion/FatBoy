@@ -244,8 +244,11 @@ public class GameCanvas extends Canvas implements Runnable {
 								break;
 						}
 					}
-					timeSinceLastFlyingObject = 0;		
-					chanceOfGettingABurger--;
+					timeSinceLastFlyingObject = 0;
+					
+					if(chanceOfGettingABurger>75)//10% chance to get more fat points-->impossibleness
+						chanceOfGettingABurger--;
+					
 					flyingObjectsSent++;
 					flyingObects.add(derp);
 	}
