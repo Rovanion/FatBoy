@@ -56,7 +56,7 @@ public class GameCanvas extends Canvas implements Runnable {
 		music = new PlayWave("src/GameTrack02.wav");
 		title = new TitleScreen(titleScreen);
 
-		musicPlaying = Settings.musicPlaying;//??? Lokal variabel tänkt för att styra vilken låt som spelas.
+		musicPlaying = Settings.musicPlaying;//??? Lokal variabel tï¿½nkt fï¿½r att styra vilken lï¿½t som spelas.
 		musicPaused = Settings.musicPaused;
 		titleMusic = Settings.titleMusic;
 
@@ -90,16 +90,16 @@ public class GameCanvas extends Canvas implements Runnable {
 
 	private void playMusic()
 	{
-		/*if (titleMusic) {
+		 if(Settings.titleMusic) {
 			music.start();
 			titleMusic = false;
-		}*/
-		//if (!Settings.showTitleScreen) {
+		 }
+		if (!Settings.showTitleScreen) {
 			music.mute();
 			music = new PlayWave("src/GameTrack04.wav");
 			music.start();
 			musicPlaying = true;
-		//}
+		}
 
 	}
 
@@ -113,7 +113,7 @@ public class GameCanvas extends Canvas implements Runnable {
 			if(!Settings.showTitleScreen){
 				time++;
 				timeSinceLastFlyingObject++;
-				if (time % 150 == 0 && timeBetweenFlyingObjects > 15)
+				if (time % 150 == 0 && timeBetweenFlyingObjects > 14)
 					timeBetweenFlyingObjects -= 2;
 				
 				if (timeSinceLastFlyingObject >= timeBetweenFlyingObjects)
@@ -245,8 +245,17 @@ public class GameCanvas extends Canvas implements Runnable {
 						}
 					}
 					timeSinceLastFlyingObject = 0;		
-					chanceOfGettingABurger--;
 					flyingObjectsSent++;
 					flyingObects.add(derp);
+					
+					/*
+					 * Decrease the chance of getting a burger by 1 each object
+					 * thrown until the chance of getting a burger is 1 to 5.
+					 * After that only decrease the chance every 5th object.
+					 */
+					if(chanceOfGettingABurger > 200)
+							chanceOfGettingABurger--;
+					else if(flyingObjectsSent % 5 == 0)
+						chanceOfGettingABurger--;
 	}
 }
