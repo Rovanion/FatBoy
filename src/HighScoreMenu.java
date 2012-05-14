@@ -15,18 +15,17 @@ public class HighScoreMenu {
 	static JTextArea textruta = new JTextArea();
 	static String name = new String();
 	static ShowHighScore shs;
-	static Score score;
+	static int score;
 
-	public HighScoreMenu(Score pScore)
+	public HighScoreMenu(int pScore)
 	{
-		shs = new ShowHighScore(pScore);
 		self= this;
 		score = pScore;
 	}
 	
-	public static void inputName(Score score) {
+	public static void inputName(final int score) {
 
-		scoreLabel = new JLabel(Integer.toString(score.getScore()));
+		scoreLabel = new JLabel(Integer.toString(score));
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setSize((int) (Settings.width() * 0.25),
 				(int) (Settings.height() * 0.25)); // Bredd och höjd.
@@ -66,6 +65,7 @@ public class HighScoreMenu {
 					hm.addScore(name,getScore());
 					
 				    self.window.dispose();
+				    shs = new ShowHighScore(name,score);
 				    shs.showScore();
 					
 				}
@@ -108,7 +108,7 @@ public class HighScoreMenu {
 		return name;
 	}
 	
-	public static Score getScore() {
+	public static int getScore() {
 		return score;
 	}
 }

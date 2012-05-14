@@ -10,7 +10,7 @@ public class ShowHighScore {
 	static JButton button = new JButton("Obeseome");
 	static JLabel label;
 	
-	public ShowHighScore(Score score)
+	public ShowHighScore(String name,int score)
 	{
 		HighscoreManager hm = new HighscoreManager();
 		label = new JLabel(hm.getHighscoreString());

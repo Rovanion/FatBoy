@@ -18,12 +18,11 @@ public class FatBoyHero {
 	private LeftFoot leftFoot = new LeftFoot();
 	private RightFoot rightFoot = new RightFoot();
 	private boolean gameEnded;
-	private Score finalScore;
+	private int finalScore;
 
 	// CONSTRUCTOR
 	public FatBoyHero(Image image) {
 		this.image = image;
-		finalScore = new Score();
 		gameEnded = false;
 	}
 
@@ -32,14 +31,13 @@ public class FatBoyHero {
 		return fatLevel;
 	}
 
-	public Score getFinalScore() {
+	public int getFinalScore() {
 		return finalScore;
 	}
 
 	public void setFinalScore(int newScore) {
-		int oldScore = finalScore.getScore();
-		newScore = oldScore + newScore;
-		finalScore.setScore(newScore);
+		int oldScore = finalScore;
+		finalScore = oldScore + newScore;
 	}
 
 	public void setFatLevel(double newFat) {

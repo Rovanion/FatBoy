@@ -152,7 +152,7 @@ public class GameCanvas extends Canvas implements Runnable {
 			if(Settings.liveDebugging)
 				System.out.println("FO-timing:" +timeSinceLastFlyingObject + " " + 
 						timeBetweenFlyingObjects + " " + chanceOfGettingABurger
-						+ " FatLvl:" + hero.getFatLevel() + " Points:" + hero.getFinalScore().getScore());
+						+ " FatLvl:" + hero.getFatLevel() + " Points:" + hero.getFinalScore());
 		}
 	}
 

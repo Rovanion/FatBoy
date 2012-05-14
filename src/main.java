@@ -11,7 +11,7 @@ public class main {
 		CreateFrame frame = new CreateFrame(newCanvas);
 
 	}
-	public static void endGame(Score playerScore) {
+	public static void endGame(int playerScore) {
 		if(Settings.showHiScore){
 			hmenu = new HighScoreMenu(playerScore);
 			hmenu.inputName(playerScore);	
