@@ -12,7 +12,8 @@ public class ShowHighScore {
 	
 	public ShowHighScore(Score score)
 	{
-		label = new JLabel(Integer.toString(score.getScore()));
+		HighscoreManager hm = new HighscoreManager();
+		label = new JLabel(hm.getHighscoreString());
 	}
 
 	
