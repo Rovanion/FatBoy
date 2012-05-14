@@ -97,6 +97,7 @@ public class PlayWave extends Thread
             return;
         } finally { 
             auline.drain();
+            mute();
             auline.close();
         } 
     	}

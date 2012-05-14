@@ -23,6 +23,8 @@ public class LeftFoot {
 	private boolean jump=false;
 	private int footSizeX;
 	private int footSizeY;
+	private double stepSize = Settings.width()*0.01;
+	private double staggerSize = Settings.height()*0.01;
 	
 	//CONSTRUCTOR
 	public LeftFoot()
@@ -76,15 +78,16 @@ public class LeftFoot {
 
 	private void moveFoot()
 	{
+		
 		dy=centerY;
 		if(step)
 		{
-			dx+=10;
+			dx+=stepSize;
 			step=false;
 		}
 		else
 		{
-			dx-=10;
+			dx-=stepSize;
 			step=true;
 		}
 	}
@@ -95,14 +98,14 @@ public class LeftFoot {
 		dx=centerX;
 		if(step)
 		{
-			dx+=10;
-			dy+=5;
+			dx+=stepSize;
+			dy+=staggerSize;
 			step=false;
 		}
 		else
 		{
-			dx-=10;
-			dy-=5;
+			dx-=stepSize;
+			dy-=staggerSize;
 			step=true;
 		}
 	}
