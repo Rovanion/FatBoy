@@ -21,9 +21,6 @@ public class main {
 	}
 
 	public static void shutDown() {
-		HighscoreManager hm = new HighscoreManager();
-		// Hör sötter vi in vöra variabler för poöng och namn 
-		hm.addScore( hmenu.getName(),hmenu.getScore());
 		System.exit(0);
 
 	}
