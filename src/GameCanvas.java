@@ -56,13 +56,14 @@ public class GameCanvas extends Canvas implements Runnable {
 		music = new PlayWave("src/GameTrack02.wav");
 		title = new TitleScreen(titleScreen);
 
-		musicPlaying = Settings.musicPlaying;//??? Lokal variabel t�nkt f�r att styra vilken l�t som spelas.
+		musicPlaying = Settings.musicPlaying;// ??? Lokal variabel t�nkt f�r att
+												// styra vilken l�t som spelas.
 		musicPaused = Settings.musicPaused;
 		titleMusic = Settings.titleMusic;
 
 		hero = new FatBoyHero(fatBoyImage);
 		disk = new Disk();
-		musicPlaying=false;
+		musicPlaying = false;
 	}
 
 	/**
@@ -88,12 +89,11 @@ public class GameCanvas extends Canvas implements Runnable {
 		}
 	}
 
-	private void playMusic()
-	{
-		 if(Settings.titleMusic) {
+	private void playMusic() {
+		if (Settings.titleMusic) {
 			music.start();
 			titleMusic = false;
-		 }
+		}
 		if (!Settings.showTitleScreen) {
 			music.mute();
 			music = new PlayWave("src/GameTrack04.wav");
@@ -109,50 +109,43 @@ public class GameCanvas extends Canvas implements Runnable {
 	 * does not crash due to heavy thread.
 	 */
 	public void run() {
+		long timeBeforeUpdateAndRender;
 		while (running) {
-			if(!Settings.showTitleScreen){
+			timeBeforeUpdateAndRender = System.currentTimeMillis();
+			if (!Settings.showTitleScreen) {
 				time++;
 				timeSinceLastFlyingObject++;
 				if (time % 150 == 0 && timeBetweenFlyingObjects > 14)
 					timeBetweenFlyingObjects -= 2;
-				
+
 				if (timeSinceLastFlyingObject >= timeBetweenFlyingObjects)
 					addFlyingObject();
 			}
-				
+
 			update();
 			render();
-			
+
 			for (FlyingObject fo : FOtoBeRemoved)
 				flyingObects.remove(fo);
 
+			long runTime = 17;
+			if (System.currentTimeMillis() - timeBeforeUpdateAndRender < 17)
+				runTime = System.currentTimeMillis()
+						- timeBeforeUpdateAndRender;
 			try {
-				Thread.sleep(10);
+				Thread.sleep((long) (17 - runTime));
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 				running = false;
 			}
 
-			if (controller.keys[KeyEvent.VK_ENTER]) {
-				if(!musicPlaying)
-				{
-					playMusic();
-					musicPlaying=true;
-				}
-			}
-			if (controller.keys[KeyEvent.VK_M]) {
-				if (musicPaused) {
-					music.unmute();
-					musicPaused = false;
-				} else {
-					music.mute();
-					musicPaused = true;
-				}
-			}
-			if(Settings.liveDebugging)
-				System.out.println("FO-timing:" +timeSinceLastFlyingObject + " " + 
-						timeBetweenFlyingObjects + " " + chanceOfGettingABurger
-						+ " FatLvl:" + hero.getFatLevel() + " Points:" + hero.getFinalScore());
+			if (Settings.liveDebugging)
+				System.out.println("FO-timing:" + timeSinceLastFlyingObject
+						+ " " + timeBetweenFlyingObjects + " " 
+						+ chanceOfGettingABurger + "\t"
+						+ " Points:" + hero.getFinalScore()
+						+ " FatLvl:" + hero.getFatLevel() + "\t"
+						+ "RenderTime:" + runTime + "ms");
 		}
 	}
 
@@ -185,7 +178,7 @@ public class GameCanvas extends Canvas implements Runnable {
 
 			// Sets the FatMeter according to FatBoy's FatPoints.
 			fm.render(g, hero.getFatLevel());
-			//Render objects
+			// Render objects
 			disk.render(g);
 			hero.render(g);
 
@@ -200,7 +193,22 @@ public class GameCanvas extends Canvas implements Runnable {
 	 */
 	private void update() {
 		if (controller.keys[KeyEvent.VK_ESCAPE]) {
-				System.exit(0);
+			System.exit(0);
+		}
+		if (controller.keys[KeyEvent.VK_ENTER]) {
+			if (!musicPlaying) {
+				playMusic();
+				musicPlaying = true;
+			}
+		}
+		if (controller.keys[KeyEvent.VK_M]) {
+			if (musicPaused) {
+				music.unmute();
+				musicPaused = false;
+			} else {
+				music.mute();
+				musicPaused = true;
+			}
 		}
 		if (!Settings.showTitleScreen) {
 			// Update all movable objects positions
@@ -226,36 +234,42 @@ public class GameCanvas extends Canvas implements Runnable {
 	public static void removeFlyingObject(FlyingObject fo) {
 		FOtoBeRemoved.add(fo);
 	}
-		public void addFlyingObject(){
-			FlyingObject derp = null;
-					if (rand.nextInt(1000) < chanceOfGettingABurger) {
-						switch (rand.nextInt(3)) {
-						case 0:	derp = new FlyingObject(friesImage, 0.3, 0.2, 50);
-								break;
-						case 1: derp = new FlyingObject(hamburgerImage, 0.6, 0.2, 50);
-								break;
-						case 2: derp = new FlyingObject(iceCreamImage, 0.1, 0.1, 50);
-						}
-					} else{
-						switch (rand.nextInt(2)){
-						case 0: derp = new FlyingObject(appleImage, 0.9, -0.15, 80);
-								break;
-						case 1: derp = new FlyingObject(carrotImage, 0.75, -0.2, 80);
-								break;
-						}
-					}
-					timeSinceLastFlyingObject = 0;		
-					flyingObjectsSent++;
-					flyingObects.add(derp);
-					
-					/*
-					 * Decrease the chance of getting a burger by 1 each object
-					 * thrown until the chance of getting a burger is 1 to 5.
-					 * After that only decrease the chance every 5th object.
-					 */
-					if(chanceOfGettingABurger > 200)
-							chanceOfGettingABurger--;
-					else if(flyingObjectsSent % 5 == 0)
-						chanceOfGettingABurger--;
+
+	public void addFlyingObject() {
+		FlyingObject derp = null;
+		if (rand.nextInt(1000) < chanceOfGettingABurger) {
+			switch (rand.nextInt(3)) {
+			case 0:
+				derp = new FlyingObject(friesImage, 0.3, 0.2, 50);
+				break;
+			case 1:
+				derp = new FlyingObject(hamburgerImage, 0.6, 0.2, 50);
+				break;
+			case 2:
+				derp = new FlyingObject(iceCreamImage, 0.1, 0.1, 50);
+			}
+		} else {
+			switch (rand.nextInt(2)) {
+			case 0:
+				derp = new FlyingObject(appleImage, 0.9, -0.15, 80);
+				break;
+			case 1:
+				derp = new FlyingObject(carrotImage, 0.75, -0.2, 80);
+				break;
+			}
+		}
+		timeSinceLastFlyingObject = 0;
+		flyingObjectsSent++;
+		flyingObects.add(derp);
+
+		/*
+		 * Decrease the chance of getting a burger by 1 each object thrown until
+		 * the chance of getting a burger is 1 to 5. After that only decrease
+		 * the chance every 5th object.
+		 */
+		if (chanceOfGettingABurger > 200)
+			chanceOfGettingABurger--;
+		else if (flyingObjectsSent % 5 == 0)
+			chanceOfGettingABurger--;
 	}
 }
