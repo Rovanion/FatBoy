@@ -18,6 +18,7 @@ public class GameCanvas extends Canvas implements Runnable {
 	// FIELDS
 	private boolean running;
 	private Image backgroundImage;
+	private Image gameOverImage;
 	private Image fatBoyImage;
 	private Image titleScreen;
 	private Image carrotImage;
@@ -72,6 +73,8 @@ public class GameCanvas extends Canvas implements Runnable {
 		try {
 			backgroundImage = ImageIO.read(getClass().getResource(
 					"BackgroundFit.jpg"));
+			gameOverImage = ImageIO.read(getClass().getResource(
+					"GameOverScreen.png"));
 			titleScreen = ImageIO.read(getClass().getResource(
 					"FatBoyTitlePixelated.png"));
 			fatBoyImage = ImageIO.read(getClass().getResource("FatBoy.png"));
@@ -180,7 +183,7 @@ public class GameCanvas extends Canvas implements Runnable {
 			title.render(g, getWidth(), getHeight());
 		}
 
-		else {
+		else if(!hero.isGameEnded()) {
 			g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), null);
 
 			// Sets the FatMeter according to FatBoy's FatPoints.
@@ -191,6 +194,10 @@ public class GameCanvas extends Canvas implements Runnable {
 
 			for (FlyingObject fo : flyingObects)
 				fo.render(g);
+		}
+		else
+		{
+			g.drawImage(gameOverImage, 0, 0, getWidth(), getHeight(), null);
 		}
 		strategy.show();
 	}

@@ -20,6 +20,10 @@ public class FatBoyHero {
 	private boolean gameEnded;
 	private int finalScore;
 
+	public boolean isGameEnded() {
+		return gameEnded;
+	}
+
 	// CONSTRUCTOR
 	public FatBoyHero(Image image) {
 		this.image = image;
