@@ -107,8 +107,11 @@ public class RightFoot {
 		}
 	}
 	
-	public void render(Graphics2D g, double boyPosx, double boyPosy, double fatLevel)
+	public void render(Graphics2D g, double posX, double posY, double fat)
 	{
+		fatLevel = fat;
+		boyPosx = posX;
+		boyPosy = posY;
 		g.translate(boyPosx,boyPosy);
 		g.drawImage(footImage, (int)(dx*fatLevel/2), (int)(dy), footSizeX , footSizeY , null);
 		g.translate(-boyPosx,-boyPosy);
