@@ -18,7 +18,7 @@ public class ShowHighScore {
 	
 	public static void showScore() {
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setSize((int) (Settings.width() * 0.25),
+		window.setSize((int) (Settings.width() * 0.45),
 				(int) (Settings.height() * 0.5)); // Bredd och höjd.
 		window.setLocation((int) (Settings.width() * 0.4),
 				(int) (Settings.height() * 0.2)); // x och y.
@@ -72,7 +72,7 @@ public class ShowHighScore {
 				(int) (window.getHeight() * 0.15));
 		textBox.setBounds((int) (window.getWidth() * 0.015),
 				(int) (window.getHeight() * 0.015),
-				(int) (window.getWidth() * 0.97),
+				(int) (window.getWidth()),
 				(int) (window.getHeight() * 0.6));
 		textBox.enable(false);
 

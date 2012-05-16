@@ -15,6 +15,7 @@ public class HighScoreMenu {
 	static String name = new String();
 	static ShowHighScore shs;
 	static int score;
+	static int maxNameLength=14;
 
 	public HighScoreMenu(int pScore)
 	{
@@ -60,6 +61,9 @@ public class HighScoreMenu {
 
 				if (ae.getSource() == button) {
 					name = textBox.getText();
+					name=name.replaceAll("\\n", "");
+					if(name.length()>maxNameLength)
+						name=name.substring(0, maxNameLength);
 					HighscoreManager hm = new HighscoreManager();
 					// Hör sötter vi in vöra variabler för poöng och namn 
 					hm.addScore(name,getScore());

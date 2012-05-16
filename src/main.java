@@ -7,9 +7,7 @@ public class main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		GameCanvas newCanvas = new GameCanvas();
-		CreateFrame frame = new CreateFrame(newCanvas);
-
+		start();
 	}
 	public static void endGame(int playerScore) {
 		if(Settings.showHiScore){
@@ -19,10 +17,16 @@ public class main {
 		else
 			shutDown();
 	}
+	
+	public static void start()
+	{
+		GameCanvas newCanvas = new GameCanvas();
+		CreateFrame frame = new CreateFrame(newCanvas);
+	}
 
 	public static void shutDown() {
+		//Kill all threads, restart application.
 		System.exit(0);
-
 	}
 
 }

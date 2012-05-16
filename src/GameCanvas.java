@@ -18,6 +18,7 @@ public class GameCanvas extends Canvas implements Runnable {
 	// FIELDS
 	private boolean running;
 	private Image backgroundImage;
+	private Image gameOverImage;
 	private Image fatBoyImage;
 	private Image titleScreen;
 	private Image carrotImage;
@@ -56,8 +57,7 @@ public class GameCanvas extends Canvas implements Runnable {
 		music = new PlayWave("src/GameTrack02.wav");
 		title = new TitleScreen(titleScreen);
 
-		musicPlaying = Settings.musicPlaying;// ??? Lokal variabel tï¿½nkt fï¿½r att
-												// styra vilken lï¿½t som spelas.
+		musicPlaying = Settings.musicPlaying;//??? Lokal variabel tänkt för att styra vilken låt som spelas.
 		musicPaused = Settings.musicPaused;
 		titleMusic = Settings.titleMusic;
 
@@ -73,6 +73,8 @@ public class GameCanvas extends Canvas implements Runnable {
 		try {
 			backgroundImage = ImageIO.read(getClass().getResource(
 					"BackgroundFit.jpg"));
+			gameOverImage = ImageIO.read(getClass().getResource(
+					"GameOverScreen.png"));
 			titleScreen = ImageIO.read(getClass().getResource(
 					"FatBoyTitlePixelated.png"));
 			fatBoyImage = ImageIO.read(getClass().getResource("FatBoy.png"));
@@ -121,10 +123,10 @@ public class GameCanvas extends Canvas implements Runnable {
 				if (timeSinceLastFlyingObject >= timeBetweenFlyingObjects)
 					addFlyingObject();
 			}
-
+				
 			update();
 			render();
-
+			
 			for (FlyingObject fo : FOtoBeRemoved)
 				flyingObects.remove(fo);
 
