@@ -1,4 +1,5 @@
 import java.awt.Dimension;
+import java.awt.Toolkit;
 
 public class Settings {
 	//Permanent settings that are not changed during runtime
@@ -8,7 +9,9 @@ public class Settings {
 	public static final boolean titleMusic = true;
 	public static final boolean showHiScore = true;
 	public static final boolean liveDebugging = false;
-	public static Dimension dim = new Dimension(1280, 720);
+	//public static Dimension dim = new Dimension(1280, 720);
+	public static Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+	
 	public static int height() {
 		return dim.height;
 	}

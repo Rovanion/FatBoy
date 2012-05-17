@@ -47,6 +47,7 @@ public class GameCanvas extends Canvas implements Runnable {
 		// Fullscreen Settings
 		// Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		// setBounds(0,0,screenSize.width, screenSize.height);
+		setBounds(0,0,Settings.dim.width, Settings.dim.height);
 
 		// Choosable dimension settings
 		setPreferredSize(Settings.dim);
@@ -130,7 +131,7 @@ public class GameCanvas extends Canvas implements Runnable {
 				flyingObects.remove(fo);
 
 			try {
-				Thread.sleep(10);
+				Thread.sleep(17);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 				running = false;

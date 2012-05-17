@@ -25,6 +25,7 @@ public class RightFoot {
 	private int footSizeY;
 	private double stepSize = Settings.width()*0.01;
 	private double staggerSize = Settings.width()*0.015;
+	private int holdOut=0;
 	
 	//CONSTRUCTOR
 	public RightFoot()
@@ -43,6 +44,8 @@ public class RightFoot {
 	//METHODS
 	public void update(Controller controller)
 	{
+		if(holdOut==3)
+		{
 		footSizeX=(int)(Settings.width()*0.05*(fatLevel/2));
 		footSizeY=(int)(Settings.height()*0.04);
 		if (controller.keys[KeyEvent.VK_UP] || controller.keys[KeyEvent.VK_W])
@@ -66,6 +69,12 @@ public class RightFoot {
 		{
 			if(!jump)
 				stagger();
+		}
+		holdOut=0;
+		}
+		else
+		{
+			holdOut++;
 		}
 	}
 	
