@@ -46,7 +46,7 @@ public class TitleScreen {
 		g.drawImage(titleScreen, 0, 0, width, height, null);
 		if(flash==maxFlash || showTut)
 		{
-		g.drawImage(buttonTut, (int)(Settings.width()*0.1), (int)(Settings.height()*0.8), buttonTut.getWidth(null), buttonTut.getHeight(null), null);
+		g.drawImage(buttonTut, (int)(Settings.width()*0.1), (int)(Settings.height()*0.75), buttonTut.getWidth(null), buttonTut.getHeight(null), null);
 		}
 		if(flash>70)
 		{

@@ -30,8 +30,8 @@ public class HighScoreMenu {
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setSize((int) (Settings.width() * 0.25),
 				(int) (Settings.height() * 0.25)); // Bredd och höjd.
-		window.setLocation((int) (Settings.width() * 0.4),
-				(int) (Settings.height() * 0.4)); // x och y.
+		window.setLocation((int) (Settings.width() * 0.6),
+				(int) (Settings.height() * 0.2)); // x och y.
 		window.setTitle("HighScore");
 		//
 		// Man lögger komponenterna i en

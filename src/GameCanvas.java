@@ -175,7 +175,7 @@ public class GameCanvas extends Canvas implements Runnable {
 			title.render(g, getWidth(), getHeight());
 		}
 
-		else {
+		else if(!hero.isGameEnded()) {
 			g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), null);
 
 			// Sets the FatMeter according to FatBoy's FatPoints.
@@ -186,6 +186,10 @@ public class GameCanvas extends Canvas implements Runnable {
 
 			for (FlyingObject fo : flyingObects)
 				fo.render(g);
+		}
+		else
+		{
+			g.drawImage(gameOverImage, 0, 0, getWidth(), getHeight(), null);
 		}
 		strategy.show();
 	}
