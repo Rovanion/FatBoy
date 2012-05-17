@@ -57,7 +57,7 @@ public class GameCanvas extends Canvas implements Runnable {
 		music = new PlayWave("src/GameTrack02.wav");
 		title = new TitleScreen(titleScreen);
 
-		musicPlaying = Settings.musicPlaying;//??? Lokal variabel tänkt för att styra vilken låt som spelas.
+		musicPlaying = Settings.musicPlaying;//??? Lokal variabel tï¿½nkt fï¿½r att styra vilken lï¿½t som spelas.
 		musicPaused = Settings.musicPaused;
 		titleMusic = Settings.titleMusic;
 
@@ -242,10 +242,10 @@ public class GameCanvas extends Canvas implements Runnable {
 		if (rand.nextInt(1000) < chanceOfGettingABurger) {
 			switch (rand.nextInt(3)) {
 			case 0:
-				derp = new FlyingObject(friesImage, 0.3, 0.2, 50);
+				derp = new FlyingObject(friesImage, 0.4, 0.2, 50);
 				break;
 			case 1:
-				derp = new FlyingObject(hamburgerImage, 0.6, 0.2, 50);
+				derp = new FlyingObject(hamburgerImage, 0.7, 0.2, 50);
 				break;
 			case 2:
 				derp = new FlyingObject(iceCreamImage, 0.1, 0.1, 50);
