@@ -37,9 +37,9 @@ public class GameCanvas extends Canvas implements Runnable {
 	private int time = 0;
 	private int timeSinceLastFlyingObject = 0;
 	private int flyingObjectsSent = 0;
-	private int timeBetweenFlyingObjects = 60;
+	private int timeBetweenFlyingObjects = 50;
 	private Random rand = new Random();
-	private int chanceOfGettingABurger = 750;
+	private int chanceOfGettingABurger = 500;
 	private FatMeter fm = new FatMeter();
 
 	// CONSTRUCTOR

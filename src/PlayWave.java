@@ -37,8 +37,7 @@ public class PlayWave extends Thread
     //METHODS
     public void run() { 
  
-    	while(Settings.musicPlaying)
-    	{
+    	while(Settings.musicPlaying){
     	
         File soundFile = new File(filename);
         if (!soundFile.exists()) { 
@@ -71,7 +70,7 @@ public class PlayWave extends Thread
             e.printStackTrace();
             return;
         } 
-            fCont = (FloatControl) auline.getControl(FloatControl.Type.MASTER_GAIN); 
+            fCont = (FloatControl) auline.getControl(FloatControl.Type.VOLUME); 
         if (auline.isControlSupported(FloatControl.Type.PAN)) { 
             FloatControl pan = (FloatControl) auline
                     .getControl(FloatControl.Type.PAN);
