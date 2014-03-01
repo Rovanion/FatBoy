@@ -23,6 +23,13 @@ public class FatBoyHero {
 	public boolean isGameEnded() {
 		return gameEnded;
 	}
+	public void endGame(){
+		if(!gameEnded){
+			gameEnded = true;
+			main.endGame(finalScore);
+		}
+		
+	}
 
 	// CONSTRUCTOR
 	public FatBoyHero(Image image) {
@@ -132,10 +139,8 @@ public class FatBoyHero {
 			dx = 0;
 		} else if (x >= 1.06) {
 			if (!gameEnded) {
-				gameEnded = true;
-				main.endGame(finalScore);
+				endGame();
 			}
-
 		}
 	}
 

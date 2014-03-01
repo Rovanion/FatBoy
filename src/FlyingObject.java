@@ -84,7 +84,7 @@ public class FlyingObject {
 	/*
 	 * Returns true if the given coordinates collide with the objecs hitbox.
 	 */
-	public boolean checkForCollision(double x, double y){
+	public boolean checkForCollision(double x, double y){		
 		if(x < (this.x + 0.05) && x > (this.x - 0.05))
 			if(y < (this.y + 0.05) && y > (this.y -0.05))
 				return true;

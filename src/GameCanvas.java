@@ -230,6 +230,10 @@ public class GameCanvas extends Canvas implements Runnable {
 					hero.setFatLevel(fo.fatpoints());
 					hero.setFinalScore(fo.highscore());
 					removeFlyingObject(fo);
+					// If the player stops existing
+					if(hero.getFatLevel() <= 0){
+						hero.endGame();
+					}
 				}
 		} else {
 			title.update(controller);

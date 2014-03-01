@@ -9,7 +9,7 @@ public class Settings {
 	public static final boolean titleMusic = false;
 	public static final boolean showHiScore = true;
 	public static final boolean liveDebugging = false;
-	public static Dimension dim = new Dimension(1280, 720);
+	public static Dimension dim = new Dimension(1600, 900);
 //	public static Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 	
 	public static int height() {
